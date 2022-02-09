@@ -1,17 +1,53 @@
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <div class="navbar-brand" style="color:white">Lista de Produtos</div>
+      </li>
+    </ul>
+
+    <%= form_with url: "#", local: true, class:"form-inline" do |form| %>
+      <%= form.search_field :search, class:"form-control-sm mr-sm-2", placeholder:"nome do produto" %>
+      <%= form.submit "Pesquisar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search" %>
+    <% end %>
+
+  </nav>
+</div><br>
+
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    
+    <%= form_with url: "#", local: true, class:"form-inline" do |form| %>
+      <%= form.select :order, options_for_select(["Titulo", "Preço", "Quantidade no estoque"]), {}, {class:"form-control-sm", style:"width:110px;"} %>&nbsp;
+      <%= form.select :type, options_for_select(["Crescente", "Decrescente"]), {}, {class:"form-control-sm", style:"width:110px;"} %>&nbsp;
+      <%= form.submit "filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search"%>
+    <% end %>
+
+    <%= link_to '', new_users_backoffice_product_path, class:"btn btn-success fa fa-plus-square", style:"font-size:18px;" %>
+  </nav>
+</div><br>
+
+<div class="row">
 <% @products.each do |product| %>
-  <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">Titulo: <%= product.title %></div>
-    <div class="card-body">
-      <h5 class="card-title">Categoria: <%= product.category.title %></h5>
-      <p class="card-text">Preço unitário: <%= product.price_monetary %></p>
-      <p class="card-text">Em estoque: <%= product.in_stock %></p>
-      <p class="card-text">Margem de segurança: <%= product.safety_margin %></p>
+  <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="card text-white bg-dark mb-3">
+      <div class="card-header" style="background-color:#191970">
+        <h6 class="card-title"><%= check_box_tag :check, class:"form-control" %> <div class="badge badge-warning"><%= product.category.title %></div> <%= product.title %></h6>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><strong>Preço unitário:</strong> R$ <%= product.price_unitary.round(2) %></p>
+        <p class="card-text"><strong>Em estoque:</strong> <%= product.in_stock %></p>
+        <p class="card-text"><strong>Margem de segurança:</strong> <%= product.safety_margin %></p>
+      </div>
+      <div class="card-footer">
+        <%= link_to '', edit_users_backoffice_product_path(product), class:"btn btn-primary fa fa-edit", style:"width:35px;" %>
+        <%= link_to '', users_backoffice_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger fa fa-trash", style:"width:35px;" %>
+      </div>
     </div>
-    <%= link_to 'Edit', edit_users_backoffice_product_path(product) %>
-    <%= link_to 'Destroy', users_backoffice_product_path, method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 <% end %>
+</div>
 
 <br>
 
-<%= link_to 'New Product', new_users_backoffice_product_path %>

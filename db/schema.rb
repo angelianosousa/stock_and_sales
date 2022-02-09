@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_000631) do
   create_table "products", force: :cascade do |t|
     t.bigint "category_id"
     t.string "title"
-    t.decimal "price_monetary"
+    t.decimal "price_unitary"
     t.integer "in_stock"
     t.integer "safety_margin"
     t.datetime "created_at", null: false
