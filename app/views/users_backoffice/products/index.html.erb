@@ -1,0 +1,17 @@
+<% @products.each do |product| %>
+  <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">Titulo: <%= product.title %></div>
+    <div class="card-body">
+      <h5 class="card-title">Categoria: <%= product.category.title %></h5>
+      <p class="card-text">Preço unitário: <%= product.price_monetary %></p>
+      <p class="card-text">Em estoque: <%= product.in_stock %></p>
+      <p class="card-text">Margem de segurança: <%= product.safety_margin %></p>
+    </div>
+    <%= link_to 'Edit', edit_users_backoffice_product_path(product) %>
+    <%= link_to 'Destroy', users_backoffice_product_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+<% end %>
+
+<br>
+
+<%= link_to 'New Product', new_users_backoffice_product_path %>

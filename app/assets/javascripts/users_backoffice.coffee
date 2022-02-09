@@ -5,7 +5,5 @@
 //= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.bundle.min
 //= require fastclick/lib/fastclick
-//= require nprogress/nprogress
 //= require bootstrap-progressbar/bootstrap-progressbar.min
-//= require bootstrap-daterangepicker/daterangepicker
 //= require custom

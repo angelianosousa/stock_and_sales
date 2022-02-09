@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :admins
+  
+  devise_for :sales_employees
+
   namespace :users_backoffice do
     get 'welcome/index'
+    resources :sales
+    resources :products
+    resources :categories
   end
 
   root to: "users_backoffice/welcome#index"

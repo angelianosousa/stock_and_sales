@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>PersonalAgenda</title>
+    <title>StockAndSales</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -23,7 +23,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Agenda Pessoal</span></a>
+              <a href="index.html" class="site_title" style="font-size:20px;"><i class="fa fa-paw"></i> <span>Estoque & Vendas</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -35,7 +35,7 @@
               </div>
               <div class="profile_info">
                 <span>Seja bem vindo!!,</span>
-                <h2><%= current_user.email %></h2>
+                <h2><%= current_sales_employee.email %></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -52,28 +52,26 @@
                       <i class="fa fa-home"></i> Home
                     <% end %>
                   </li>
+                  <li><a><i class="fa fa-suitcase"></i> Produtos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <%= link_to users_backoffice_products_path do %>
+                          <i class="fa fa-list"></i> Painel
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to users_backoffice_categories_path do %>
+                          <i class="fa fa-outdent"></i> Categorias
+                        <% end %>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
               
             </div>
             <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="#">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -174,7 +172,6 @@
         <div class="right_col" role="main">
           <!-- top tiles -->
 
-          LAYOUT USERS BACKOFFICE
           <%= yield %>
 
         </div>

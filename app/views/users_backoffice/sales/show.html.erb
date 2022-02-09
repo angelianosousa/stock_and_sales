@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sales employee:</strong>
+  <%= @sale.sales_employee %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @sale.product %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @sale.amount %>
+</p>
+
+<p>
+  <strong>Amount price:</strong>
+  <%= @sale.amount_price %>
+</p>
+
+<p>
+  <strong>Date sale:</strong>
+  <%= @sale.date_sale %>
+</p>
+
+<%= link_to 'Edit', edit_users_backoffice_sale_path(@sale) %> |
+<%= link_to 'Back', users_backoffice_sales_path %>
