@@ -1,14 +1,13 @@
 <h2>Esqueci minha senha</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "sales_employees/shared/error_messages", resource: resource %>
 
   <div class="form-group">
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"example@gmail.com" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Enviar reset de senha", class:"btn btn-primary btn-block", style:"float:none;margin-left:0;" %>
+    <%= f.submit "Enviar reset de senha", class:"btn btn-block", class:"btn btn-block", style:"float:none;margin-left:0;background-color:#1C1C1C;color:white;" %>
   </div>
 <% end %>
 

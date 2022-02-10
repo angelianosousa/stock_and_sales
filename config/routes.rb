@@ -5,9 +5,9 @@ Rails.application.routes.draw do
 
   namespace :users_backoffice do
     get 'welcome/index'
-    resources :sales
-    resources :products
-    resources :categories
+    resources :sales, except: [:show, :new]
+    resources :products, except: [:show, :new]
+    resources :categories, except: [:show, :new]
   end
 
   root to: "users_backoffice/welcome#index"

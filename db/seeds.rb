@@ -25,14 +25,14 @@ end
 end
 
 50.times do |sales|
-  @product = Product.all.sample
+  product = Product.all.sample
   random_number = rand(5..12)
 
-  Sale.create(
-    sales_employee: SalesEmployee.all.sample,
-    product: @product,
-    amount: random_number,
-    amount_price: random_number*@product.price_unitary,
-    date_sale: "22-#{rand(1..12)}-#{rand(1..31)}".to_date
+  Sale.create!(
+    sales_profile: SalesEmployee.all.sample.sales_profile,
+    product: product,
+    amount: random_number*(sales+1),
+    amount_price: random_number*product.price_unitary.to_f,
+    date_sale: Faker::Date.in_date_period
   )
 end

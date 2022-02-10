@@ -3,13 +3,13 @@
 one:
   category: one
   title: MyString
-  price_monetary: 9.99
+  price_unitary: 9.99
   in_stock: 1
   safety_margin: 1
 
 two:
   category: two
   title: MyString
-  price_monetary: 9.99
+  price_unitary: 9.99
   in_stock: 1
   safety_margin: 1

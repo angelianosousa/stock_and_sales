@@ -16,7 +16,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     fill_in "Category", with: @product.category_id
     fill_in "In stock", with: @product.in_stock
-    fill_in "Price monetary", with: @product.price_monetary
+    fill_in "Price monetary", with: @product.price_unitary
     fill_in "Safety margin", with: @product.safety_margin
     fill_in "Title", with: @product.title
     click_on "Create Product"
@@ -31,7 +31,7 @@ class ProductsTest < ApplicationSystemTestCase
 
     fill_in "Category", with: @product.category_id
     fill_in "In stock", with: @product.in_stock
-    fill_in "Price monetary", with: @product.price_monetary
+    fill_in "Price monetary", with: @product.price_unitary
     fill_in "Safety margin", with: @product.safety_margin
     fill_in "Title", with: @product.title
     click_on "Update Product"

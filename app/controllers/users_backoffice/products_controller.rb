@@ -1,18 +1,9 @@
 class UsersBackoffice::ProductsController < UsersBackofficeController
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: %i[ edit update destroy ]
 
   # GET /products or /products.json
   def index
-    @products = Product.all.includes(:category)
-  end
-
-  # GET /products/1 or /products/1.json
-  def show
-  end
-
-  # GET /products/new
-  def new
-    @product = Product.new
+    @products = Product.all.includes(:category).page(params[:page])
   end
 
   # GET /products/1/edit
@@ -25,10 +16,10 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
+        format.html { redirect_to users_backoffice_products_url, notice: "Produto cadastrado com sucesso!" }
+        format.json { redirect_to users_backoffice_products_url, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to users_backoffice_products_url, status: :unprocessable_entity, alert: @product.errors }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
@@ -38,10 +29,10 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
+        format.html { redirect_to users_backoffice_products_url, notice: "Produto atualizado com sucesso!" }
+        format.json { redirect_to users_backoffice_products_url, status: :ok }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, alert: @product.errors }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
@@ -52,7 +43,7 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
     @product.destroy
 
     respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+      format.html { redirect_to users_backoffice_products_url, notice: "Produto apagado com sucesso!" }
       format.json { head :no_content }
     end
   end
@@ -65,6 +56,6 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:category_id, :title, :price_monetary, :in_stock, :safety_margin)
+      params.require(:product).permit(:category_id, :title, :price_unitary, :in_stock, :safety_margin)
     end
 end

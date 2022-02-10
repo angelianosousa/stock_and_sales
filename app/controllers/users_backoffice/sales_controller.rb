@@ -1,18 +1,9 @@
 class UsersBackoffice::SalesController < UsersBackofficeController
-  before_action :set_sale, only: %i[ show edit update destroy ]
+  before_action :set_sale, only: %i[ edit update destroy ]
 
   # GET /sales or /sales.json
   def index
-    @sales = Sale.all
-  end
-
-  # GET /sales/1 or /sales/1.json
-  def show
-  end
-
-  # GET /sales/new
-  def new
-    @sale = Sale.new
+    @sales = Sale.all.page(params[:page])
   end
 
   # GET /sales/1/edit
@@ -25,10 +16,10 @@ class UsersBackoffice::SalesController < UsersBackofficeController
 
     respond_to do |format|
       if @sale.save
-        format.html { redirect_to sale_url(@sale), notice: "Sale was successfully created." }
-        format.json { render :show, status: :created, location: @sale }
+        format.html { redirect_to users_backoffice_sales_url, notice: "Registro de Venda criado com sucesso!" }
+        format.json { redirect_to users_backoffice_sales_url, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to users_backoffice_sales_url, status: :unprocessable_entity, alert: @sale.errors }
         format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
     end
@@ -38,10 +29,10 @@ class UsersBackoffice::SalesController < UsersBackofficeController
   def update
     respond_to do |format|
       if @sale.update(sale_params)
-        format.html { redirect_to sale_url(@sale), notice: "Sale was successfully updated." }
-        format.json { render :show, status: :ok, location: @sale }
+        format.html { redirect_to sale_url(@sale), notice: "Registro de Venda atualizado com sucesso!" }
+        format.json { redirect_to users_backoffice_sales_url, status: :ok, location: @sale }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, alert: @sale.errors }
         format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
     end
@@ -52,7 +43,7 @@ class UsersBackoffice::SalesController < UsersBackofficeController
     @sale.destroy
 
     respond_to do |format|
-      format.html { redirect_to sales_url, notice: "Sale was successfully destroyed." }
+      format.html { redirect_to users_backoffice_sales_url, notice: "Regitro de venda apagado com sucesso!" }
       format.json { head :no_content }
     end
   end
@@ -65,6 +56,6 @@ class UsersBackoffice::SalesController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def sale_params
-      params.require(:sale).permit(:sales_employee_id, :product_id, :amount, :amount_price, :date_sale)
+      params.require(:sale).permit(:sales_profile_id, :product_id, :amount, :amount_price, :date_sale)
     end
 end

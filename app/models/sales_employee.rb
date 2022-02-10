@@ -5,7 +5,9 @@ class SalesEmployee < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one :sales_profile
+
   def set_profile
-    SalesEmployeeProfile.create(sales_employee_id: self.id)
+    SalesProfile.create(sales_employee_id: SalesEmployee.last.id)
   end
 end
