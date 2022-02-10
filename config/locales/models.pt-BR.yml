@@ -1,0 +1,61 @@
+'pt-BR':
+  activerecord:
+    models:
+      admin:
+        one: Administrador
+        other: Administradores
+      sales_employee:
+        one: Vendedor(a)
+        other: Vendedores(as)
+      product:
+        one: Produto
+        other: Produtos
+      sale:
+        one: Venda
+        other: Vendas
+      category:
+        one: Categoria
+        other: Categorias
+      sales_profile:
+        one: Perfil do Vendedor(a)
+        other: Perfis de Vendedores(as)
+    attributes:
+      admin:
+        id: Código
+        email: Email
+        password: Senha
+        password_confirmation: Confirmação da Senha
+        created_at: Criado em
+        updated_at: Atualizado em
+      sales_employee:
+        id: Código
+        email: Email
+        password: Senha
+        password_confirmation: Confirmação da Senha
+        created_at: Criado em
+        updated_at: Atualizado em
+      product:
+        id: Código
+        category_id: Código da Categoria
+        product_code: Código do Produto
+        title: Titulo do Produto
+        price_unitary: Valor Unitário
+        in_stock: Quantindade em Estoque
+        safety_margin: Margem de Segurança
+        created_at: Criado em
+        updated_at: Atualizado em
+      sale:
+        id: Código
+        sales_profile_id: Código do Vendedor
+        product_id: Códido do Produto
+        sales_code: Código da Venda
+        amount: Quantidade vendida
+        amount_price: Valor total da venda
+        date_sale: Data da Venda
+        created_at: Criado em
+        updated_at: Atualizado em
+      category:
+        title: Titulo
+        products_count: Contador de produtos
+        created_at: Criado em
+        updated_at: Atualizado em

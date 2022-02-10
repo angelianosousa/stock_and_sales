@@ -3,7 +3,11 @@ class UsersBackoffice::SalesController < UsersBackofficeController
 
   # GET /sales or /sales.json
   def index
-    @sales = Sale.all.page(params[:page])
+    if params[:sales_code]
+      @sales = Sale._search_sales_(params[:sales_code], params[:page])
+    else
+      @sales = Sale.all.includes(:product).page(params[:page])
+    end
   end
 
   # GET /sales/1/edit

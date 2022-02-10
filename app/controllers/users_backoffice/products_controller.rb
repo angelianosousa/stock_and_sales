@@ -3,7 +3,11 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
 
   # GET /products or /products.json
   def index
-    @products = Product.all.includes(:category).page(params[:page])
+    unless params[:product_code]
+      @products = Product.all.includes(:category).page(params[:page])
+    else
+      @products = Product._search_product_code_(params[:product_code], params[:page])
+    end
   end
 
   # GET /products/1/edit

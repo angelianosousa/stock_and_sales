@@ -3,7 +3,12 @@ class UsersBackoffice::CategoriesController < UsersBackofficeController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all.page(params[:page])
+    
+    unless params[:title]
+      @categories = Category.all.page(params[:page])
+    else
+      @categories = Category._search_category_(params[:title], params[:page])
+    end
   end
 
   # GET /categories/1/edit
