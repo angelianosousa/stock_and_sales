@@ -23,15 +23,16 @@ class UsersBackoffice::SalesController < UsersBackofficeController
     @sale.products.build if @sale.products.blank?
   end
 
+  # FIXME need implement to a way better to add products and find a way to save a number for each product adds
   # POST /sales or /sales.json
   def create
     @sale = Sale.new(sale_params)
-    @sale.sales_profile = current_sales_employee.sales_profile
+    params[:sale][:products].shift
 
-    products = params[:sale][:products].shift
-    @sale.products << Product.find(products)
+    @sale.sales_profile = current_sales_employee.sales_profile
+    @sale.products << Product.find(params[:sale][:products])
     @sale.date_sale = Date.today
-    # @sale.amount_price = 
+    # @sale.amount
 
     respond_to do |format|
       if @sale.save
@@ -68,6 +69,10 @@ class UsersBackoffice::SalesController < UsersBackofficeController
         notice: "Regitro de venda apagado com sucesso!" }
       format.json { head :no_content }
     end
+  end
+
+  # TODO generate a pdf for the sales
+  def sale_pdf
   end
 
   private

@@ -4,7 +4,6 @@ class CreateSales < ActiveRecord::Migration[5.2]
       t.references :sales_profile, foreign_key: true
       t.string :sales_code, null: false
       t.integer :amount
-      t.decimal :amount_price
       t.datetime :date_sale
 
       t.timestamps

@@ -24,11 +24,9 @@
       <%= form.submit "filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search"%>
     <% end %>
 
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newsalesModal">
+    <%= link_to new_users_backoffice_sale_path, class:"btn btn-success btn-round" do %>
       <i class="fa fa-plus-square"></i>
-    </button>
-
-    <%= link_to "Nova venda", new_users_backoffice_sale_path %>
+    <% end %>
   </nav>
 </div><br>
 
@@ -37,19 +35,15 @@
     <div class="col-sm-6 col-md-6 col-lg-6">
       <div class="card text-white bg-dark mb-3">
         <div class="card-header" style="background-color:#191970">
-
-         <h6 class="card-title"><strong>Produto:</strong> <%= sale.products.any? %> <br> <strong>Código da venda:</strong> <%= sale.sales_code %></h6> 
-
+         <h6 class="card-title"><strong>Código da venda:</strong> <%= sale.sales_code %></h6> 
         </div>
         <div class="card-body">
           <p class="card-text"><strong>Vendedor:</strong> <%= sale.sales_profile.sales_employee.email %></p>
-
           <p class="card-text"><strong>Quantidade Vendida:</strong> <%= sale.amount %></p>
-
           <p class="card-text"><strong>Preço total da venda: </strong>R$ <%= sale.amount_price %></p>
-
         </div>
         <div class="card-footer">
+          <%= link_to '', users_backoffice_sale_path(sale), class:"btn btn-info fa fa-eye", style:"width:35px;" %>
           <%= link_to '', edit_users_backoffice_sale_path(sale), class:"btn btn-primary fa fa-edit", style:"width:35px;" %>
           <%= link_to '', users_backoffice_sale_path(sale), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger fa fa-trash", style:"width:35px;" %>
         </div>

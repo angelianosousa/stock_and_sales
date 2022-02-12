@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :Produto %>
-    <%= form.select :products, options_for_select( Product.order(:title).collect{ |product| [product.title, product.id] }), {include_blank: false}, { multiple: true, size: 10, class:"form-control"} %>
+    <%= form.collection_select :products, Product.order(:title), :id, :title, {include_blank: false}, { multiple: true, size: 10, class:"form-control"} %>
   </div>
 
   <div class="row">

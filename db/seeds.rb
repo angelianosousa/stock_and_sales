@@ -11,7 +11,7 @@
 end
 
 10.times do
-  Category.create!(title: Faker::Job.field)
+  Category.create!(title: Faker::Company.bs)
 end
 
 20.times do
@@ -25,12 +25,11 @@ end
 end
 
 50.times do
-  product = Product.all.sample(rand(2..8))
   random_number = rand(5..12)
 
   Sale.create!(
     sales_profile: SalesEmployee.all.sample.sales_profile,
-    products: product,
+    products: Product.all.sample(rand(2..8)),
     amount: random_number,
     date_sale: Faker::Date.in_date_period
   )
