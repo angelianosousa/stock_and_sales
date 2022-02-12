@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <caption>Lista de Produtos Vendidos</caption>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome do produto</th>
+        <th>Valor da unidade</th>
+        <th>Em estoque</th>
+      </tr>
+    </thead>
+
+    <% @sale.products.each do |product| %>
+      <tbody>
+        <tr>
+          <td><%= product.title %></td>
+          <td>R$ <%= product.price_unitary.round(2) %></td>
+          <td><%= product.in_stock %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</p>
+
+<!-- 
+<strong>Products:</strong>
+<div class="container">
+
+  <% @sale.products.each do |product| %>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-header" style="background-color:#191970">
+          <h6 class="card-title"><%= check_box_tag :check, class:"form-control" %> <div class="badge badge-warning"><%= product.product_code %></div> <%= product.title %></h6>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><strong>Categoria do produto:</strong> <%= product.category.title %></p>
+          <p class="card-text"><strong>Preço unitário:</strong> R$ <%= product.price_unitary.round(2) %></p>
+          <p class="card-text"><strong>Em estoque:</strong> <%= product.in_stock %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+-->
+
+<p>
+  <strong>Amount:</strong>
+  <%= @sale.amount %>
+</p>
+
+<p>
+  <strong>Amount price:</strong>
+  <%= @sale.amount_price %>
+</p>
+
+<p>
+  <strong>Date sale:</strong>
+  <%= @sale.date_sale %>
+</p>
+
+<%= link_to 'Edit', edit_users_backoffice_sale_path(@sale) %> |
+<%= link_to 'Back', users_backoffice_sales_path %>

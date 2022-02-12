@@ -7,32 +7,31 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times do |user|
-  SalesEmployee.create(email:"user#{user}@gmail.com", password: "secret123", password_confirmation: "secret123")
+  SalesEmployee.create!(email:"user#{user}@gmail.com", password: "secret123", password_confirmation: "secret123")
 end
 
-10.times do |category|
-  Category.create(title: Faker::Ancient.titan)
+10.times do
+  Category.create!(title: Faker::Job.field)
 end
 
-20.times do |product|
-  Product.create(
+20.times do
+  Product.create!(
     category: Category.all.sample,
-    title: Faker::Beer.name,
+    title: Faker::Company.name,
     price_unitary: rand(100.00..9999.00),
     in_stock: rand(10..50),
     safety_margin: 10
   )
 end
 
-50.times do |sales|
-  product = Product.all.sample
+50.times do
+  product = Product.all.sample(rand(2..8))
   random_number = rand(5..12)
 
   Sale.create!(
     sales_profile: SalesEmployee.all.sample.sales_profile,
-    product: product,
-    amount: random_number*(sales+1),
-    amount_price: random_number*product.price_unitary.to_f,
+    products: product,
+    amount: random_number,
     date_sale: Faker::Date.in_date_period
   )
 end

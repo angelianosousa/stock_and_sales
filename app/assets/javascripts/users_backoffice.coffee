@@ -6,4 +6,5 @@
 //= require bootstrap/dist/js/bootstrap.bundle.min
 //= require bootstrap-progressbar/bootstrap-progressbar.min
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min
+//= require cocoon
 //= require custom

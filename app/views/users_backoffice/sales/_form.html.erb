@@ -1,20 +1,19 @@
-<%= form_with(model: [:users_backoffice, sale], local: true) do |form| %>
-  <% if sale.errors.any? %>
+<%= form_with(model: [:users_backoffice, @sale], local: true) do |form| %>
+  <% if @sale.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
 
       <ul>
-      <% sale.errors.full_messages.each do |message| %>
+      <% @sale.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
   <div class="field">
     <%= form.label :Produto %>
-    <%= form.collection_select :product_id, Product.all, :id, :title, {include_blank: "Selecione um produto"}, {class:"form-control"} %>
+    <%= form.select :products, options_for_select( Product.order(:title).collect{ |product| [product.title, product.id] }), {include_blank: false}, { multiple: true, size: 10, class:"form-control"} %>
   </div>
 
   <div class="row">
@@ -24,17 +23,6 @@
         <%= form.number_field :amount, class:"form-control" %>
       </div>
     </div>
-    <div class="col-md-6 col-sm-6">
-      <div class="field">
-        <%= form.label :'Preço total ($)' %>
-        <%= form.number_field :amount_price, class:"form-control" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="field">
-    <%= form.label :'Dia da venda' %>
-    <%= form.datetime_field :date_sale, class:"form-control" %>
   </div>
 
   <div class="modal-footer">

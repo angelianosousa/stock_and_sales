@@ -32,10 +32,12 @@ ActiveRecord::Schema.define(version: 2022_02_10_182859) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "products_count", default: 0
+    t.integer "sales_count", default: 0
   end
 
   create_table "products", force: :cascade do |t|
     t.bigint "category_id"
+    t.bigint "sale_id"
     t.integer "product_code", null: false
     t.string "title"
     t.decimal "price_unitary"
@@ -44,18 +46,17 @@ ActiveRecord::Schema.define(version: 2022_02_10_182859) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["sale_id"], name: "index_products_on_sale_id"
   end
 
   create_table "sales", force: :cascade do |t|
     t.bigint "sales_profile_id"
-    t.bigint "product_id"
-    t.integer "sales_code", null: false
+    t.string "sales_code", null: false
     t.integer "amount"
     t.decimal "amount_price"
     t.datetime "date_sale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sales_on_product_id"
     t.index ["sales_profile_id"], name: "index_sales_on_sales_profile_id"
   end
 
@@ -80,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_182859) do
   end
 
   add_foreign_key "products", "categories"
-  add_foreign_key "sales", "products"
+  add_foreign_key "products", "sales"
   add_foreign_key "sales", "sales_profiles"
   add_foreign_key "sales_profiles", "sales_employees"
 end

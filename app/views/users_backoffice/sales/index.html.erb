@@ -3,7 +3,7 @@
     
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <div class="navbar-brand" style="color:white"><%= link_to "Lista de Vendas", users_backoffice_sales_path, style:"color:#fff" %> </div>
+        <div class="navbar-brand" style="color:white"><%= link_to "Lista de #{@sales.model_name.human.pluralize}", users_backoffice_sales_path, style:"color:#fff" %> </div>
       </li>
     </ul>
 
@@ -24,9 +24,11 @@
       <%= form.submit "filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search"%>
     <% end %>
 
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#new<%= params[:controller].slice(17..30) %>Modal">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newsalesModal">
       <i class="fa fa-plus-square"></i>
     </button>
+
+    <%= link_to "Nova venda", new_users_backoffice_sale_path %>
   </nav>
 </div><br>
 
@@ -35,16 +37,17 @@
     <div class="col-sm-6 col-md-6 col-lg-6">
       <div class="card text-white bg-dark mb-3">
         <div class="card-header" style="background-color:#191970">
-          <h6 class="card-title"><strong>Produto:</strong> <%= sale.product.title %> <br> <strong>Código da venda:</strong> <%= sale.sales_code %></h6>
+
+         <h6 class="card-title"><strong>Produto:</strong> <%= sale.products.any? %> <br> <strong>Código da venda:</strong> <%= sale.sales_code %></h6> 
+
         </div>
         <div class="card-body">
-          <p class="card-text"><strong>Vendedor:</strong> <%= sale.sales_profile.name ? sale.sales_profile.name : sale.sales_profile.sales_employee.email %></p>
-          <p class="card-text"><strong>Código do produto:</strong> <%= sale.product.product_code %></p>
-          <p class="card-text"><strong>Categoria do produto:</strong> <%= sale.product.category.title %></p>
+          <p class="card-text"><strong>Vendedor:</strong> <%= sale.sales_profile.sales_employee.email %></p>
+
           <p class="card-text"><strong>Quantidade Vendida:</strong> <%= sale.amount %></p>
-          <p class="card-text"><strong>Preço da unidade: </strong>R$ <%= sale.product.price_unitary.round(2) %></p>
-          <p class="card-text"><strong>Preço total da venda: </strong>R$ <%= sale.amount_price.round(2) %></p>
-          <p class="card-text"><strong>Data da Venda:</strong> <%= I18n.l(sale.date_sale.to_date) %></p>
+
+          <p class="card-text"><strong>Preço total da venda: </strong>R$ <%= sale.amount_price %></p>
+
         </div>
         <div class="card-footer">
           <%= link_to '', edit_users_backoffice_sale_path(sale), class:"btn btn-primary fa fa-edit", style:"width:35px;" %>

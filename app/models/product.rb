@@ -4,7 +4,7 @@ class Product < ApplicationRecord
 
   # Associations
   belongs_to :category, counter_cache: true
-  has_many :sales, dependent: :destroy
+  belongs_to :sale, optional: true
 
   # Validations
   validates :title, uniqueness: true, presence: true

@@ -1,6 +1,6 @@
 body {
   background-color: #fff;
-  color: #1C1C1C;
+  color: #333;
   margin: 33px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -20,19 +20,21 @@ pre {
 }
 
 a {
-  color: #1C1C1C;
+  color: #000;
 
   &:visited {
     color: #666;
   }
 
   &:hover {
-    color: #000;
+    color: #fff;
+    background-color: #000;
   }
 }
 
 th {
   padding-bottom: 5px;
+  text-align:left;
 }
 
 td {
@@ -47,6 +49,12 @@ div {
 
 #notice {
   color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
 }
 
 #error_explanation {
