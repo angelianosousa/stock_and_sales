@@ -52,14 +52,23 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # TODO import products with excel or csv or svg
+  def import_products
+  end
 
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:category_id, :title, :price_unitary, :in_stock, :safety_margin)
-    end
+  # TODO destroy multiple products at once
+  def destroy_product_selected
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def product_params
+    params.require(:product).permit(:category_id, :picture, :title, :price, :in_stock, :safety_margin)
+  end
 end

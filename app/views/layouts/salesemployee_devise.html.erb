@@ -16,18 +16,15 @@
 
   </head>
 
-  <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signin"></a>
-
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <%= yield %>
-          </section>
-        </div>
-
+  <body class="login" style="background-color:#1C1C1C">
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+          <h1><i class="fa fa-money"></i> Stock and Sales</h1>
+          <%= yield %>
+        </section>
       </div>
+
     </div>
 
     <%= javascript_include_tag 'application' %>

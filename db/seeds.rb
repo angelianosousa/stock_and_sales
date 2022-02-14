@@ -17,20 +17,23 @@ end
 20.times do
   Product.create!(
     category: Category.all.sample,
-    title: Faker::Company.name,
-    price_unitary: rand(100.00..9999.00),
+    company: Faker::Company.name,
+    title: Faker::Lorem.sentence(word_count: 3, random_words_to_add: 4),
+    price: rand(100.00..9999.00),
     in_stock: rand(10..50),
     safety_margin: 10
   )
 end
 
 50.times do
-  random_number = rand(5..12)
-
-  Sale.create!(
+  products = Product.all.sample(rand(2..5))
+  sale = Sale.create!(
     sales_profile: SalesEmployee.all.sample.sales_profile,
-    products: Product.all.sample(rand(2..8)),
-    amount: random_number,
-    date_sale: Faker::Date.in_date_period
+    client_name: Faker::Name.name,
+    date_sale: Faker::Date.in_date_period(year: 2022)
   )
+
+  sale.sale_items.each do |item|
+    item.product = products[item]
+  end
 end

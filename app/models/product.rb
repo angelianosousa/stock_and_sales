@@ -4,11 +4,13 @@ class Product < ApplicationRecord
 
   # Associations
   belongs_to :category, counter_cache: true
-  belongs_to :sale, optional: true
+  
+  has_many :sales_items
+  has_one_attached :picture
 
   # Validations
   validates :title, uniqueness: true, presence: true
-  validates :price_unitary, :in_stock, :safety_margin, presence: true
+  validates :price, :in_stock, :safety_margin, presence: true
 
   paginates_per 10
 

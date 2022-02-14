@@ -30,7 +30,7 @@
     <div class="col-md-12 col-sm-12 col-lg-12">
       <div class="field">
         <%= form.label :'Preço Unitário ($)' %>
-        <%= form.number_field :price_unitary, class:"form-control" %>
+        <%= form.number_field :price, class:"form-control" %>
       </div>
     </div>
     <div class="col-md-12 col-sm-12 col-lg-12">
@@ -45,10 +45,16 @@
         <%= form.number_field :safety_margin, class:"form-control" %>
       </div>
     </div>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="field">
+        <%= form.label :'Foto do produto' %>
+        <%= form.file_field :picture, class:"form-control" %>
+      </div>
+    </div>
   </div>
 
   <div class="modal-footer">
     <%= form.submit "Salvar", class:"btn btn-dark" %>
-    <button type="button" class="btn btn-outline-info fa fa-arrow-left" style="font-size:24px" data-dismiss="modal"></button>
+    <%= link_to '', users_backoffice_products_path, class:"btn btn-outline-info fa fa-arrow-left", style:"font-size:24px" %>
   </div>
 <% end %>

@@ -59,3 +59,8 @@ nprogress@0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
   integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
+
+vanilla-nested@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/vanilla-nested/-/vanilla-nested-1.5.1.tgz#2d756a611206d98abebb35da78a5784237302704"
+  integrity sha512-Zy2BqEzYS3uuSwYsw44eSgEegETxEngcXlNUPXACGtZJK9V1e0/05RvN+D3olIOzpDWfdQjkUtv1Z461O7BdyA==

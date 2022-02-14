@@ -30,7 +30,7 @@ gem 'devise'
 gem 'rails-i18n'
 gem 'faker'
 gem 'kaminari', '1.1.1'
-gem "cocoon"
+gem 'vanilla_nested'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

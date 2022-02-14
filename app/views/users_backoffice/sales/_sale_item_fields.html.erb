@@ -1,0 +1,15 @@
+<div class="wrapper-div">
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      <%= form.select :product_id, Product.order(:title).collect{ |product| [product.title, product.id] }, {}, { class:"form-control"} %>
+    </div>
+    <div class="col-md-1 col-sm-1">
+      <%= form.number_field :sold_amount, class:"form-control" %>
+    </div>
+    <div class="col-md-1 col-sm-1">
+      <%= link_to_remove_nested(form, link_classes: 'btn btn-danger', tag_attributes: {title: "Delete!"}) do %>
+        <i class="fa fa-trash" style="color:white"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

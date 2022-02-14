@@ -1,18 +1,17 @@
 class UsersBackoffice::SalesController < UsersBackofficeController
-  before_action :set_sale, only: %i[ show edit update destroy ]
+  before_action :set_sale, only: %i[show edit update destroy]
 
   # GET /sales or /sales.json
   def index
-    unless params[:sales_code]
-      @sales = Sale.where(sales_profile: current_sales_employee.sales_profile).includes(:products, :sales_profile => :sales_employee).page(params[:page])
-    else
+    if params[:sales_code]
       @sales = Sale._search_sales_(current_sales_employee.sales_profile, params[:sales_code], params[:page])
+    else
+      @sales = Sale.where(sales_profile: current_sales_employee.sales_profile).includes(:sales_profile => :sales_employee).page(params[:page])
     end
   end
 
   def new
     @sale = Sale.new
-    @sale.products.build
   end
 
   def show
@@ -20,19 +19,14 @@ class UsersBackoffice::SalesController < UsersBackofficeController
 
   # GET /sales/1/edit
   def edit
-    @sale.products.build if @sale.products.blank?
+    @sale.sale_items_build if @sale.sale_items.blank?
+    
   end
 
-  # FIXME need implement to a way better to add products and find a way to save a number for each product adds
   # POST /sales or /sales.json
   def create
     @sale = Sale.new(sale_params)
-    params[:sale][:products].shift
-
     @sale.sales_profile = current_sales_employee.sales_profile
-    @sale.products << Product.find(params[:sale][:products])
-    @sale.date_sale = Date.today
-    # @sale.amount
 
     respond_to do |format|
       if @sale.save
@@ -83,6 +77,6 @@ class UsersBackoffice::SalesController < UsersBackofficeController
 
   # Only allow a list of trusted parameters through.
   def sale_params
-    params.require(:sale).permit(:sales_profile_id, :products, :amount, :amount_price, :date_sale)
+    params.require(:sale).permit(:sales_profile_id, :client_name, sale_items_attributes: [:id, :sale_id, :product_id, :sold_amount, :_destroy])
   end
 end

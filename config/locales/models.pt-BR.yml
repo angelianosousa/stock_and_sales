@@ -39,7 +39,7 @@
         category_id: Código da Categoria
         product_code: Código do Produto
         title: Titulo do Produto
-        price_unitary: Valor Unitário
+        price: Preço do Produto
         in_stock: Quantindade em Estoque
         safety_margin: Margem de Segurança
         created_at: Criado em
@@ -47,15 +47,22 @@
       sale:
         id: Código
         sales_profile_id: Código do Vendedor
-        product_id: Códido do Produto
-        sales_code: Código da Venda
-        amount: Quantidade vendida
-        amount_price: Valor total da venda
-        date_sale: Data da Venda
+        client_name: Nome do Cliente
         created_at: Criado em
         updated_at: Atualizado em
       category:
+        id: Código
         title: Titulo
         products_count: Contador de produtos
+        created_at: Criado em
+        updated_at: Atualizado em
+      sale_item:
+        id: Código
+        sale_id: Código da venda
+        product_id: Código do produto
+        sold_amount: Quantidade vendida
+        total_price: Preço total
+        date_sale: Data da venda
+        picked_up: Venda paga
         created_at: Criado em
         updated_at: Atualizado em
