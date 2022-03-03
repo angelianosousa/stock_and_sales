@@ -1,6 +1,7 @@
-# Nome do Projeto
+# Sistema de Gerencia de Estoque e Vendas
 
 ## O que é o Projeto ?
+É um sistema para facilitar o gerenciamento de estoque e vendas de variados tipos de produtos, dentro dele você tem acesso a todo o seu estoque e graficos a respeito da quantidade de produtos no estoque separados por categoria e os itens mais vendidos.
 
 ## Tecnologias
 
@@ -8,10 +9,6 @@
 * Rails 5.2.1
 * PostgreSQL
 * Bootstrap 4.3.1
-
-## Objetivos
-
-## Aprendizados
 
 ## Próximas Features
 
