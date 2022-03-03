@@ -1,4 +1,4 @@
-<%= form_with(model: product, local: true) do |form| %>
+<%= form_with(model: [:users_backoffice, product], local: true) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -11,32 +11,50 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :category_id %>
-    <%= form.text_field :category_id %>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-lg-6">
+      <div class="field">
+        <%= form.label :'Titulo do produto' %>
+        <%= form.text_field :title, class:"form-control" %>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-lg-6">
+      <div class="field">
+        <%= form.label :Categoria %>
+        <%= form.collection_select :category_id, Category.all, :id, :title, {include_blank: "Selecione uma categoria"}, {class:"form-control"} %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="field">
+        <%= form.label :'Preço Unitário ($)' %>
+        <%= form.number_field :price, class:"form-control" %>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="field">
+        <%= form.label :'Em estoque' %>
+        <%= form.number_field :in_stock, class:"form-control" %>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="field">
+        <%= form.label :'Margem de segurança' %>
+        <%= form.number_field :safety_margin, class:"form-control" %>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="field">
+        <%= form.label :'Foto do produto' %>
+        <%= form.file_field :picture, class:"form-control" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :price_monetary %>
-    <%= form.text_field :price_monetary %>
-  </div>
-
-  <div class="field">
-    <%= form.label :in_stock %>
-    <%= form.number_field :in_stock %>
-  </div>
-
-  <div class="field">
-    <%= form.label :safety_margin %>
-    <%= form.number_field :safety_margin %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="modal-footer">
+    <%= form.submit "Salvar", class:"btn btn-dark" %>
+    <%= link_to '', users_backoffice_products_path, class:"btn btn-outline-info fa fa-arrow-left", style:"font-size:24px" %>
   </div>
 <% end %>

@@ -1,7 +1,6 @@
-<h2>Stock and Sales</h2>
+<h2>Login</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <%= render "sales_employees/shared/error_messages", resource: resource %>
 
   <div class="form-group">
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder: "example@gmail.com" %>
@@ -19,7 +18,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Entrar", class:"btn btn-dark btn-block", style:"float:none;margin-left:0;" %>
+    <%= f.submit "Entrar", class:"btn btn-primary btn-block btn-round", style:"float:none;margin-left:0;" %>
   </div>
 <% end %>
 

@@ -1,35 +1,65 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <div class="navbar-brand" style="color:white"><%= link_to "Lista de #{@sales.model_name.human.pluralize}", users_backoffice_sales_path, style:"color:#fff" %> </div>
+      </li>
+    </ul>
 
-<h1>Sales</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Sales employee</th>
-      <th>Product</th>
-      <th>Amount</th>
-      <th>Amount price</th>
-      <th>Date sale</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sales.each do |sale| %>
-      <tr>
-        <td><%= sale.sales_employee %></td>
-        <td><%= sale.product %></td>
-        <td><%= sale.amount %></td>
-        <td><%= sale.amount_price %></td>
-        <td><%= sale.date_sale %></td>
-        <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_users_backoffice_sale_path(sale) %></td>
-        <td><%= link_to 'Destroy', users_backoffice_sale_path(sale), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <%= form_with url: users_backoffice_sales_path, method: :get, local: true, class:"form-inline" do |form| %>
+      <%= form.search_field :sales_code, class:"form-control-sm mr-sm-2", placeholder:"Código da venda" %>
+      <%= form.submit "Pesquisar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search" %>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+  </nav>
+</div><br>
 
-<%= link_to 'New Sale', new_sale_path %>
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    
+    <%= form_with url: "#", local: true, class:"form-inline" do |form| %>
+      <%= form.select :order, options_for_select(["Titulo", "Preço", "Quantidade no estoque"]), {}, {class:"form-control-sm", style:"width:110px;"} %>&nbsp;
+      <%= form.select :type, options_for_select(["Crescente", "Decrescente"]), {}, {class:"form-control-sm", style:"width:110px;"} %>&nbsp;
+      <%= form.submit "filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search"%>
+    <% end %>
+
+    <ul class="navbar" style='list-style:none'>
+      <li class='nav-item'>
+        <%= link_to new_users_backoffice_sale_path, class:"btn btn-success btn-round" do %>
+          <i class="fa fa-plus-square"></i>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+</div><br>
+
+<div class="row">
+  <% @sales.each do |sale| %>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-header" style="background-color:#191970">
+         <h6 class="card-title"><%= check_box_tag :mark %> &nbsp;<strong>Nome do Cliente:</strong> <%= sale.client_name %></h6> 
+        </div>
+        <div class="card-body">
+          <p class="card-text"><strong>Vendedor:</strong> <%= sale.sales_profile.sales_employee.email %></p>
+          <p class="card-text"><strong>Valor total da Venda:</strong> <%= sale.total_price.round(2) %></p>
+          <p class="card-text"><strong>Data da Venda:</strong> <%= I18n.l(sale.date_sale.to_date) %></p>
+          </p>
+        </div>
+        <div class="card-footer">
+          <%= link_to '', users_backoffice_sale_path(sale), class:"btn btn-info fa fa-eye", style:"width:35px;" %>
+          <%= link_to '', edit_users_backoffice_sale_path(sale), class:"btn btn-primary fa fa-edit", style:"width:35px;" %>
+          <%= link_to '', users_backoffice_sale_path(sale), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger fa fa-trash", style:"width:35px;" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="text-center">
+  <%= paginate @sales %><br>
+</div>
+
+<%= render partial: "users_backoffice/modals/new_sale", locals: {sale: @sale = Sale.new } %>
+

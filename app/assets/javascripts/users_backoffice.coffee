@@ -4,6 +4,7 @@
 
 //= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.bundle.min
-//= require fastclick/lib/fastclick
 //= require bootstrap-progressbar/bootstrap-progressbar.min
+//= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min
+//= require vanilla_nested
 //= require custom

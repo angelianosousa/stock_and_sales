@@ -1,29 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <div class="navbar-brand"><%= I18n.l(@sale.date_sale.to_date) %> | Lista de Produtos Vendidos - <%= @sale.client_name %> </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <%= link_to '', "#", class:"btn btn-success btn-round fa fa-file" %>
+        <%= link_to '', edit_users_backoffice_sale_path(@sale), class:"btn btn-primary btn-round fa fa-edit"%>
+        <%= link_to '', users_backoffice_sales_path, class:"btn btn-danger btn-round fa fa-arrow-left" %>
+      </li>
+    </ul>
+  </nav>
+</div>
 
-<p>
-  <strong>Sales employee:</strong>
-  <%= @sale.sales_employee %>
-</p>
+<table class="table">
+  <thead>
+    <tr class='tr_principal'>
+      <th>Código do produto</th>
+      <th>Marca</th>
+      <th>Nome do produto</th>
+      <th>Valor da unidade</th>
+      <th>Qtnd vendida</th>
+    </tr>
+  </thead>
 
-<p>
-  <strong>Product:</strong>
-  <%= @sale.product %>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @sale.amount %>
-</p>
-
-<p>
-  <strong>Amount price:</strong>
-  <%= @sale.amount_price %>
-</p>
-
-<p>
-  <strong>Date sale:</strong>
-  <%= @sale.date_sale %>
-</p>
-
-<%= link_to 'Edit', edit_users_backoffice_sale_path(@sale) %> |
-<%= link_to 'Back', users_backoffice_sales_path %>
+  <% @sale.sale_items.includes(:product => :category).each do |item| %>
+    <tbody>
+      <tr>
+        <td style="background-color:#ffc23d;color:#343a40;width:15%;"><strong><%= item.product.product_code %></strong></td>
+        <td style="width:30%;"><%= item.product.company %></td>
+        <td style="width:30%;"><%= item.product.title %></td>
+        <td>R$ <%= item.product.price.round(2) %></td>
+        <td> <%= item.sold_amount %></td>
+      </tr>
+    </tbody>
+  <% end %>
+  
+    <tfoot>
+      <tr>
+        <td><strong>Total:</strong> <br></td>
+        <td colspan='2'></td>
+        <td><strong></strong>R$ <%= @sale.total_price.round(2) %></td>
+        <td><strong><%= @sale.sale_items.sum(:sold_amount) %> </strong> </td>
+      </tr>
+    </tfoot>
+</table>

@@ -1,42 +1,49 @@
-<%= form_with(model: sale, local: true) do |form| %>
-  <% if sale.errors.any? %>
+<%= form_with(model: [:users_backoffice, @sale], local: true) do |form| %>
+  <% if @sale.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+      <h2><%= pluralize(@sale.errors.count, "Erro(s)") %> Impediu da venda ser salva:</h2>
 
-      <ul>
-      <% sale.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <div class='alert alert-danger'>
+        <ul>
+          <% @sale.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :sales_employee_id %>
-    <%= form.text_field :sales_employee_id %>
+  <div id='items'>
+    <%= link_to_add_nested(form, :sale_items, '#sale-items', link_classes:"btn btn-success") do %>
+      <i class="fa fa-plus-circle" style="color:white;"></i>
+    <% end %>
   </div>
 
+  <div class='row'>
+    <div class='col-lg-4'>
+      <div class="field">
+        <%= form.label :'Nome do cliente:'%>
+        <%= form.text_field :client_name, class:"form-control" %>
+      </div>
+    </div>
+    <div class='col-md-2'>
+      <div class="field">
+        <%= form.label :'Cliente levou ?'%>
+        <%= form.check_box :picked_up, class:"form-control" %>
+      </div>
+    </div>
+  </div><br>
+  
   <div class="field">
-    <%= form.label :product_id %>
-    <%= form.text_field :product_id %>
+    <div id='sale-items'>
+      <%= form.fields_for :sale_items do |sale_item_form| %>
+        <%= render 'sale_item_fields', form: sale_item_form %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.number_field :amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :amount_price %>
-    <%= form.text_field :amount_price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date_sale %>
-    <%= form.datetime_select :date_sale %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="modal-footer">
+    <%= form.submit "Salvar", class:"btn btn-dark" %>
+    <%= link_to '', users_backoffice_sales_path, class:"btn btn-outline-info fa fa-arrow-left", style:"font-size:24px" %>
   </div>
 <% end %>

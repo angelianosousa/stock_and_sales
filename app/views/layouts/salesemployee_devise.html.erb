@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>StockAndSales</title>
+    <title>Login | StockAndSales</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,21 +17,31 @@
   </head>
 
   <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signin"></a>
-
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <%= yield %>
-          </section>
-        </div>
-
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+          <h1><i class="fa fa-money"></i> Stock and Sales</h1>
+          <%= yield %>
+        </section>
       </div>
+
     </div>
 
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'salesemployee_devise' %>
+
+    <% if flash %>
+      <% flash.each do |key, value| %>
+        <%= javascript_tag do %>
+          $.bootstrapGrowl('<%= value %>', {
+            type: 'danger', // (null, 'info', 'danger', 'success')
+            align: 'right', // ('left', 'right', or 'center')
+            allow_dismiss: true, // If true then will display a cross to close the popup.
+            stackup_spacing: 10 // spacing between consecutively stacked growls.
+          });
+        <% end %>
+      <% end %>
+    <% end %>
 
   </body>
 </html>
