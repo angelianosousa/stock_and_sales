@@ -39,7 +39,11 @@
         </div>
         <div class="row no-gutters">
           <div class="col-md-4">
-            <%= product.picture.attached? ? image_tag(product.picture, size:"180x248", style:"margin-left:10px;") : image_tag('https://via.placeholder.com/180x248', size:"180x248", style:"margin-left:10px;")%>
+            <% unless product.picture.attached? %>
+              <%= image_tag('https://via.placeholder.com/180x248', size:"180x248", style:"margin-left:10px;") %>
+            <% else %>
+              <%= image_tag(product.picture, size:"180x248", style:"margin-left:10px;") %>
+            <% end %>
           </div>
           <div class="col-md-8">
             <div class="card-body">

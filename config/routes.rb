@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   devise_for :admins
-  
+
   devise_for :sales_employees
 
   namespace :users_backoffice do
     get 'welcome/index'
+    get 'dashboard_sales', to: "sales#dashboad_sales"
     resources :sales
+
     resources :products, except: [:show, :new]
     resources :categories, except: [:show, :new]
   end

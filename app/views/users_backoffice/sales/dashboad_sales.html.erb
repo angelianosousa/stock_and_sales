@@ -1,0 +1,20 @@
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <div class="navbar-brand" style="color:white"><%= link_to "Dashboard", users_backoffice_dashboard_sales_path, style:"color:#fff" %> </div>
+      </li>
+    </ul>
+
+    <%= form_with url: '#', method: :get, local: true, class:"form-inline" do |form| %>
+      <%#= form.search_field :product_code, class:"form-control-sm mr-sm-2", placeholder:"Código do produto" %>
+      <%#= form.submit "Pesquisar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search" %>
+    <% end %>
+
+  </nav>
+</div><br>
+
+<%= line_chart Sale.all.includes(:sale_items).group(:client_name).sum(:total_price) %>
+
+<%= column_chart Sale.all.includes(:sale_items).group_by_month(:created_at).sum(:total_price) %>

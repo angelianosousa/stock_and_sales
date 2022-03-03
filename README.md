@@ -1,24 +1,42 @@
-# README
+# Nome do Projeto
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## O que é o Projeto ?
 
-Things you may want to cover:
+## Tecnologias
 
-* Ruby version
+* Ruby 2.6.1
+* Rails 5.2.1
+* PostgreSQL
+* Bootstrap 4.3.1
 
-* System dependencies
+## Objetivos
 
-* Configuration
+## Aprendizados
 
-* Database creation
+## Próximas Features
 
-* Database initialization
+Dentro do projeto você pode usar o comando *rails notes* para saber todas as features que restam no projeto ou consultar a lista abaixo
 
-* How to run the test suite
+* Importação/Exportação de produtos com excel, csv ou svg
+* Removar multiplos produtos de uma única vez
+* Gerar um pdf com a lista de compras
+* Exibir, durante a escolha dos produtos, o total da venda
+* Gatilho de aviso para produtos na margem de segurança
+* Aviso para quando um produto estiver faltando no estoque
+<dl>
+  <dt>Gráficos</dt>
+  <dd>Coluna de produtos com os mais vendidos</dd>
+  <dd>Categorias de produtos com os mais</dd>
+  <dd>Colunas de estoque para cada produto da loja</dd>
+  <dd>Linha com resultado de vendas para cada vendedor cadastrado e seus valores mensais</dd>
+</dl>
 
-* Services (job queues, cache servers, search engines, etc.)
+## Como usar o Projeto
+~~~ruby
+  bundle
+  rails db:create db:migrate db:seed
+  rails s
+~~~
 
-* Deployment instructions
-
-* ...
+## Links
+* Produção: Em breve

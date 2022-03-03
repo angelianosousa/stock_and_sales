@@ -31,6 +31,9 @@ gem 'rails-i18n'
 gem 'faker'
 gem 'kaminari', '1.1.1'
 gem 'vanilla_nested'
+gem "chartkick"
+gem 'groupdate' # optional
+gem 'apexcharts'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

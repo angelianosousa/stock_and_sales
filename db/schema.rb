@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
   create_table "sales", force: :cascade do |t|
     t.bigint "sales_profile_id"
     t.string "client_name", null: false
-    t.date "date_sale", default: "2022-02-14"
+    t.date "date_sale", default: "2022-03-03"
     t.decimal "total_price", default: "0.0"
     t.boolean "picked_up", default: false
     t.datetime "created_at", null: false

@@ -15,7 +15,9 @@ class Sale < ApplicationRecord
 
   def make_total_price
     self.sale_items.each do |item|
-      self.total_price += item.product.price
+      self.total_price += item.product.price*item.sold_amount
+      item.product.in_stock -= item.sold_amount
+      item.product.save!
     end
   end
 end

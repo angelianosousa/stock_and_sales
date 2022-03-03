@@ -25,15 +25,17 @@ end
   )
 end
 
-50.times do
-  products = Product.all.sample(rand(2..5))
+20.times do
   sale = Sale.create!(
     sales_profile: SalesEmployee.all.sample.sales_profile,
     client_name: Faker::Name.name,
     date_sale: Faker::Date.in_date_period(year: 2022)
   )
 
-  sale.sale_items.each do |item|
-    item.product = products[item]
+  Product.all.sample(rand(2..5)).each do |product|
+    sold_amount = rand(1..3)
+    sale.sale_items.create(product: product, sold_amount: sold_amount)
+    sale.total_price += product.price*sold_amount
   end
+  sale.save!
 end

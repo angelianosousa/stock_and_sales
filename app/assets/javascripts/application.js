@@ -13,3 +13,6 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require apexcharts
+//= require chartkick
+//= require Chart.bundle

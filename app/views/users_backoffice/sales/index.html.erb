@@ -24,9 +24,13 @@
       <%= form.submit "filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search"%>
     <% end %>
 
-    <%= link_to new_users_backoffice_sale_path, class:"btn btn-success btn-round" do %>
-      <i class="fa fa-plus-square"></i>
-    <% end %>
+    <ul class="navbar" style='list-style:none'>
+      <li class='nav-item'>
+        <%= link_to new_users_backoffice_sale_path, class:"btn btn-success btn-round" do %>
+          <i class="fa fa-plus-square"></i>
+        <% end %>
+      </li>
+    </ul>
   </nav>
 </div><br>
 
@@ -35,7 +39,7 @@
     <div class="col-sm-6 col-md-6 col-lg-6">
       <div class="card text-white bg-dark mb-3">
         <div class="card-header" style="background-color:#191970">
-         <h6 class="card-title"><strong>Nome do Cliente:</strong> <%= sale.client_name %></h6> 
+         <h6 class="card-title"><%= check_box_tag :mark %> &nbsp;<strong>Nome do Cliente:</strong> <%= sale.client_name %></h6> 
         </div>
         <div class="card-body">
           <p class="card-text"><strong>Vendedor:</strong> <%= sale.sales_profile.sales_employee.email %></p>
@@ -52,8 +56,6 @@
     </div>
   <% end %>
 </div>
-
-
 
 <div class="text-center">
   <%= paginate @sales %><br>

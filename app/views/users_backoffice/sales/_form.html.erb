@@ -13,9 +13,11 @@
     </div>
   <% end %>
 
-  <%= link_to_add_nested(form, :sale_items, '#sale-items', link_classes:"btn btn-success") do %>
-    <i class="fa fa-plus-circle" style="color:white;"></i>
-  <% end %>
+  <div id='items'>
+    <%= link_to_add_nested(form, :sale_items, '#sale-items', link_classes:"btn btn-success") do %>
+      <i class="fa fa-plus-circle" style="color:white;"></i>
+    <% end %>
+  </div>
 
   <div class='row'>
     <div class='col-lg-4'>
