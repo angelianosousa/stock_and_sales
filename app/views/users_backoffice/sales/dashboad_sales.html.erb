@@ -15,6 +15,6 @@
   </nav>
 </div><br>
 
-<%= line_chart Sale.all.includes(:sale_items).group(:client_name).sum(:total_price) %>
+<%= line_chart Sale.all.includes(:sale_items).group(:client_name).sum(:total_price_cents) %>
 
-<%= column_chart Sale.all.includes(:sale_items).group_by_month(:created_at).sum(:total_price) %>
+<%= column_chart Sale.all.includes(:sale_items).group_by_month(:created_at).sum(:total_price_cents) %>

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id             :bigint           not null, primary key
+#  category_id    :bigint
+#  product_code   :string           not null
+#  company        :string
+#  model          :string
+#  title          :string
+#  price_cents    :integer          default(0), not null
+#  price_currency :string           default("BRL"), not null
+#  in_stock       :integer          default(0)
+#  safety_margin  :integer          default(0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do

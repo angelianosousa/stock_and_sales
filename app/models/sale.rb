@@ -1,23 +1,31 @@
+# == Schema Information
+#
+# Table name: sales
+#
+#  id                   :bigint           not null, primary key
+#  sales_profile_id     :bigint
+#  client_name          :string           not null
+#  saled_at             :datetime
+#  total_price_cents    :integer          default(0), not null
+#  total_price_currency :string           default("BRL"), not null
+#  status               :integer          default("open")
+#  payment_method       :integer          default("money")
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
 class Sale < ApplicationRecord
-  before_save :make_total_price
+  enum status: %i[open paid]
+  enum payment_method: %i[money debt_card credit_card]
+
   belongs_to :sales_profile
   has_many :sale_items, dependent: :destroy
 
-  validates :client_name, :total_price, presence: true
+  validates :client_name, presence: true
+  monetize :total_price_cents
 
   accepts_nested_attributes_for :sale_items, reject_if: :all_blank, allow_destroy: true
 
   paginates_per 10
 
-  scope :_search_sales_, -> (sales_profile, sales_code, page) { 
-    where("sales_profile_id = ? and sales_code = ?", sales_profile.id, sales_code).page(page)
-  }
-
-  def make_total_price
-    self.sale_items.each do |item|
-      self.total_price += item.product.price*item.sold_amount
-      item.product.in_stock -= item.sold_amount
-      item.product.save!
-    end
-  end
+  
 end

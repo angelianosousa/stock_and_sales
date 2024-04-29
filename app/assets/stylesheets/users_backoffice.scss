@@ -7,3 +7,32 @@
 *= require font-awesome/css/font-awesome.min
 *= require custom
 */
+
+.search-form-filter {
+  border: 1px solid black;
+  color: black;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.product_code_style {
+  background-color:#ffc23d;
+  color:#343a40;
+  width:15%;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+.button_remove_item {
+  margin: 0px 20px 180px -10px;
+  position: absolute;
+}

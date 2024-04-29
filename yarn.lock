@@ -52,15 +52,20 @@ font-awesome@4.6.3:
   resolved "https://registry.npmjs.org/font-awesome/-/font-awesome-4.6.3.tgz#86933651540ee00874c664017f50f2172f6531a2"
   integrity sha1-hpM2UVQO4Ah0xmQBf1DyFy9lMaI=
 
-jquery@2.2.4:
-  version "2.2.4"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
-  integrity sha1-LInWiJterFIqfuoywUUhVZxsvwI=
+jquery@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
 jquery@>=1.10:
   version "3.6.0"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
+js-datepicker@^5.18.2:
+  version "5.18.2"
+  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.18.2.tgz#2f25c7a4d25207dd5a3053efe95173ddf840527f"
+  integrity sha512-lBh5tIwb1ewDVlNHuwczoLiMhTFWnGYuHSA7ONAPKyMeofIFZDFGeOZ71UTY/Mk2evJJt+L66ec/RiXUy8XzEg==
 
 moment@^2.9.0:
   version "2.29.1"

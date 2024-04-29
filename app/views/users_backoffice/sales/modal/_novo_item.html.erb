@@ -1,0 +1,96 @@
+<div class="modal fade" id="addSalesItems" tabindex="-1" role="dialog" aria-labelledby="addSalesItemsTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSalesItemsTitle">Adicionar itens</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <%= form_with url: users_backoffice_sale_add_item_path(sale_id: @sale.id), class: 'form', local: true do |f| %>
+
+          <div class='row'>
+            <div class='col-6 col-sm-8'>
+              <div class='form-group'>
+                <%= f.label :product_id, 'Produto' %>
+                <%= f.select :product_id, options_for_select(products_options_for_select), { prompt: 'Selecione um produto' }, { class: 'form-control' } %>
+              </div>
+            </div>
+
+            <div class='col-6 col-sm-4'>
+              <div class='form-group'>
+                <%= f.label :in_stock, 'Estoque' %>
+                <%= f.number_field :in_stock, value: 0, disabled: true, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+
+          <div class='row'>
+            <div class='col-sm-4'>
+              <div class='form-group'>
+                <%= f.label :price, 'Preço' %>
+                <%= f.text_field :price, value: 0, disabled: true, min: 1, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='col-sm-4'>
+              <div class='form-group'>
+                <%= f.label :sold_amount, 'Quantidade' %>
+                <%= f.number_field :sold_amount, value: 1, min: 1, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='col-sm-4'>
+              <div class='form-group'>
+                <%= f.label :subtotal_price, 'Total', for: 'subtotal_price' %>
+                <%= f.text_field :subtotal_price, value: 0, min: 1, class: 'form-control disabled' %>
+              </div>
+            </div>
+          </div>
+          
+          <div class='actions'>
+            <%= f.submit 'Salvar', class: 'btn btn-primary', id: 'save_item' %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    let item_price     = $('#price');
+    let subtotal_price = $('#subtotal_price');
+    let in_stock       = $('#in_stock');
+
+    $('#product_id').on('change', function(){
+      let product_id  = $(this).val();
+      let sold_amount = $('#sold_amount').val();
+
+      calcule_products(product_id, sold_amount)
+    })
+
+    $('#sold_amount').on('keyup', function(){
+      let product_id  = $('#product_id').val();
+      let in_stock    = $('#in_stock').val();
+      let sold_amount = $(this).val();
+
+      calcule_products(product_id, sold_amount)
+    })
+
+    function calcule_products(product_id, solded){
+      $.get('<%= users_backoffice_products_path %>', { q: { id_eq: product_id }}, function(response){
+        let product = response[0]
+
+        item_price.val((product.price.cents).toLocaleString('pt-BR', { style: 'currency', currency: product.price.currency_iso }))
+        in_stock.val(product.in_stock - solded)
+
+        subtotal_price.val((product.price.cents * solded).toLocaleString('pt-BR', { style: 'currency', currency: product.price.currency_iso }))
+      }, 'json')
+    }
+    
+  })
+</script>

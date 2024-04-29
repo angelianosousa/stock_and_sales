@@ -1,50 +1,58 @@
-<div class="container">
-  <nav class="navbar navbar-dark bg-dark">
-    
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <div class="navbar-brand"><%= I18n.l(@sale.date_sale.to_date) %> | Lista de Produtos Vendidos - <%= @sale.client_name %> </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <%= link_to '', "#", class:"btn btn-success btn-round fa fa-file" %>
-        <%= link_to '', edit_users_backoffice_sale_path(@sale), class:"btn btn-primary btn-round fa fa-edit"%>
-        <%= link_to '', users_backoffice_sales_path, class:"btn btn-danger btn-round fa fa-arrow-left" %>
-      </li>
-    </ul>
-  </nav>
+<%= link_to_go_back %>
+
+<nav class="navbar navbar-dark bg-dark">
+  
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <div class="navbar-brand"><%= I18n.l(@sale.created_at.to_date) %> | Cliente - <%= @sale.client_name %> </div>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav">
+    <li class="nav-item ">
+      <% if @sale.open? %>
+        <button type="button" class="btn btn-success btn-round" data-toggle="modal" data-target="#addSalesItems">
+          <span class='icon'><i class='fa fa-plus'> Item</i></span>
+        </button>
+
+        <%= link_to edit_users_backoffice_sale_path(@sale), class:"btn btn-primary btn-round py-0" do %>
+          <span class='icon'><i class='fa fa-edit'></i></span>
+        <% end %>
+      <% end %>
+
+    </li>
+  </ul>
+</nav>
+
+
+<% if @sale.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@sale.errors.count, "Erro(s)") %> Impediu da venda ser salva:</h2>
+
+    <div class='alert alert-danger'>
+      <ul>
+        <% @sale.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<div id='sale_items'>
+  <%= render 'sale_items', locals: @sale %>
 </div>
 
-<table class="table">
-  <thead>
-    <tr class='tr_principal'>
-      <th>Código do produto</th>
-      <th>Marca</th>
-      <th>Nome do produto</th>
-      <th>Valor da unidade</th>
-      <th>Qtnd vendida</th>
-    </tr>
-  </thead>
+<% if @sale.open? %>
+  <button type="button" class="btn btn-primary btn-round float-right" data-toggle="modal" data-target="#closeSale">
+    Fechar venda
+  </button>
 
-  <% @sale.sale_items.includes(:product => :category).each do |item| %>
-    <tbody>
-      <tr>
-        <td style="background-color:#ffc23d;color:#343a40;width:15%;"><strong><%= item.product.product_code %></strong></td>
-        <td style="width:30%;"><%= item.product.company %></td>
-        <td style="width:30%;"><%= item.product.title %></td>
-        <td>R$ <%= item.product.price.round(2) %></td>
-        <td> <%= item.sold_amount %></td>
-      </tr>
-    </tbody>
-  <% end %>
-  
-    <tfoot>
-      <tr>
-        <td><strong>Total:</strong> <br></td>
-        <td colspan='2'></td>
-        <td><strong></strong>R$ <%= @sale.total_price.round(2) %></td>
-        <td><strong><%= @sale.sale_items.sum(:sold_amount) %> </strong> </td>
-      </tr>
-    </tfoot>
-</table>
+  <%= render 'users_backoffice/sales/modal/close_sale' %>
+  <%= render 'users_backoffice/sales/modal/novo_item' %>
+<% else %>
+  <div class='float-right'>
+    <p>Fechado em: <%= simple_date_format @sale.saled_at %></p>
+  </div>
+<% end %>
+

@@ -13,6 +13,8 @@
 
     <%= stylesheet_link_tag    'application' %>
     <%= stylesheet_link_tag    'users_backoffice' %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     
   </head>
 
@@ -47,13 +49,17 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Painel</h3>
+
                 <ul class="nav side-menu">
-                  <li>
+                  <li class="<%= params[:controller] == 'welcome' ? 'active' : '' %>">
                     <%= link_to users_backoffice_welcome_index_path do %>
                       <i class="fa fa-home"></i> Home
                     <% end %>
                   </li>
-                  <li><a><i class="fa fa-suitcase"></i> Produtos <span class="fa fa-chevron-down"></span></a>
+
+                  <li class="<%= params[:controller] == 'products' ? 'active' : '' %>">
+                    <a><i class="fa fa-suitcase"></i> Produtos <span class="fa fa-chevron-down"></span></a>
+
                     <ul class="nav child_menu">
                       <li>
                         <%= link_to users_backoffice_products_path do %>
@@ -67,7 +73,10 @@
                       </li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-usd img-circle"></i> Vendas <span class="fa fa-chevron-down"></span></a>
+
+                  <li class="<%= params[:controller] == 'sales' ? 'active' : '' %>">
+                    <a><i class="fa fa-usd img-circle"></i> Vendas <span class="fa fa-chevron-down"></span></a>
+
                     <ul class="nav child_menu">
                       <li>
                         <%= link_to users_backoffice_dashboard_sales_path do %>
@@ -93,21 +102,25 @@
         <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-              <nav class="nav navbar-nav">
+
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <nav class="nav navbar-nav">
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                     <img src="https://via.placeholder.com/150C/" alt="">John Doe
                   </a>
+
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item"  href="javascript:;"> Profile</a>
                     <a class="dropdown-item"  href="javascript:;">
                       <span class="badge bg-red pull-right">50%</span>
                       <span>Settings</span>
                     </a>
+
                     <%= link_to destroy_sales_employee_session_path(current_sales_employee), method: :delete, data: {confirm: "Quer mesmo sair ?"}, class:"dropdown-item" do %>
                       <i class="fa fa-sign-out pull-right"></i> Sair
                     <% end %>
@@ -119,6 +132,7 @@
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
                   </a>
+
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                     <li class="nav-item">
                       <a class="dropdown-item">
@@ -132,6 +146,7 @@
                         </span>
                       </a>
                     </li>
+
                     <li class="nav-item">
                       <a class="dropdown-item">
                         <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
@@ -144,6 +159,7 @@
                         </span>
                       </a>
                     </li>
+
                     <li class="nav-item">
                       <a class="dropdown-item">
                         <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
@@ -156,6 +172,7 @@
                         </span>
                       </a>
                     </li>
+
                     <li class="nav-item">
                       <a class="dropdown-item">
                         <span class="image"><img src="https://via.placeholder.com/150C/" alt="Profile Image" /></span>
@@ -168,6 +185,7 @@
                         </span>
                       </a>
                     </li>
+
                     <li class="nav-item">
                       <div class="text-center">
                         <a class="dropdown-item">
@@ -176,6 +194,7 @@
                         </a>
                       </div>
                     </li>
+
                   </ul>
                 </li>
               </ul>
@@ -196,32 +215,11 @@
         </div>
         <!-- /page content -->
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
       </div>
     </div>
 
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag 'users_backoffice' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <% if notice %>
-      <%= javascript_tag do %>
-        $.bootstrapGrowl("<%= notice %>", {
-          type: 'success', // (null, 'info', 'error', 'success')
-          align: 'right', // ('left', 'right', or 'center')
-          width: 250, // (integer, or 'auto')
-          delay: 4000,
-          allow_dismiss: true,
-          stackup_spacing: 10 // spacing between consecutively stacked growls.
-        });
-      <% end %>      
-    <% end %>
-
+    <%= render 'shared/notification_messages' %>
   </body>
 </html>

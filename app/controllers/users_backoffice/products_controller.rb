@@ -3,11 +3,9 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
 
   # GET /products or /products.json
   def index
-    unless params[:product_code]
-      @products = Product.all.includes(:category).page(params[:page])
-    else
-      @products = Product._search_product_code_(params[:product_code], params[:page])
-    end
+    @q = Product.ransack(params[:q])
+
+    @products = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /products/1/edit
@@ -54,10 +52,6 @@ class UsersBackoffice::ProductsController < UsersBackofficeController
 
   # TODO import products with excel or csv or svg
   def import_products
-  end
-
-  # TODO destroy multiple products at once
-  def destroy_product_selected
   end
 
   private

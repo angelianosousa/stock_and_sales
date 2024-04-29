@@ -7,35 +7,36 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times do |user|
-  SalesEmployee.create!(email:"user#{user}@gmail.com", password: "secret123", password_confirmation: "secret123")
+  SalesEmployee.create!(email:"user#{user}@teste.com", password: "user321", password_confirmation: "user321")
 end
 
 10.times do
-  Category.create!(title: Faker::Company.bs)
+  Category.create!(title: Faker::ProgrammingLanguage.name)
 end
 
 20.times do
   Product.create!(
     category: Category.all.sample,
-    company: Faker::Company.name,
-    title: Faker::Lorem.sentence(word_count: 3, random_words_to_add: 4),
-    price: rand(100.00..9999.00),
-    in_stock: rand(10..50),
+    company: Faker::Restaurant.type,
+    title: Faker::Restaurant.name,
+    price_cents: rand(100.00..9999.00),
+    in_stock: 50,
     safety_margin: 10
   )
 end
 
-20.times do
-  sale = Sale.create!(
-    sales_profile: SalesEmployee.all.sample.sales_profile,
-    client_name: Faker::Name.name,
-    date_sale: Faker::Date.in_date_period(year: 2022)
-  )
+# 20.times do
+#   sale = Sale.find_or_initialize_by(
+#     sales_profile: SalesEmployee.all.sample.sales_profile,
+#     client_name:   Faker::Name.name,
+#     saled_at:      Faker::Date.in_date_period(year: 2024)
+#   )
 
-  Product.all.sample(rand(2..5)).each do |product|
-    sold_amount = rand(1..3)
-    sale.sale_items.create(product: product, sold_amount: sold_amount)
-    sale.total_price += product.price*sold_amount
-  end
-  sale.save!
-end
+#   product = Product.all.sample
+
+#   sold_amount = rand(1..3)
+#   sale.sale_items.build(product: product, sold_amount: sold_amount)
+#   sale.total_price_cents += product.price_cents*sold_amount
+
+#   sale.save
+# end

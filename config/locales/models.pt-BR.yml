@@ -62,7 +62,7 @@
         product_id: Código do produto
         sold_amount: Quantidade vendida
         total_price: Preço total
-        date_sale: Data da venda
+        saled_at: Data da venda
         picked_up: Venda paga
         created_at: Criado em
         updated_at: Atualizado em

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id             :bigint           not null, primary key
+#  category_id    :bigint
+#  product_code   :string           not null
+#  company        :string
+#  model          :string
+#  title          :string
+#  price_cents    :integer          default(0), not null
+#  price_currency :string           default("BRL"), not null
+#  in_stock       :integer          default(0)
+#  safety_margin  :integer          default(0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 class Product < ApplicationRecord
 
   # Callbacks
@@ -9,9 +26,14 @@ class Product < ApplicationRecord
   has_many :sales_items
   has_one_attached :picture
 
+  has_one_attached :picture do |attachable|
+    attachable.variant :store, resize: "100x100"
+  end
+
   # Validations
-  validates :title, uniqueness: true, presence: true
+  validates :title, presence: true
   validates :price, :in_stock, :safety_margin, presence: true
+  monetize :price_cents
 
   # TODO Validations if has any product on sale
 
@@ -21,7 +43,7 @@ class Product < ApplicationRecord
     self.product_code = rand(12_345_678..99_999_999)
   end
 
-  scope :_search_product_code_, -> (product_code, page) { 
-    where(product_code: product_code).includes(:category).page(page)
-  }
+  default_scope { order(updated_at: :desc )}
+
+  scope :with_stock, -> { where('in_stock > ?', 0) }
 end

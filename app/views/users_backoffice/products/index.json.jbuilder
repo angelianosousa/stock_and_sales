@@ -1,1 +1,1 @@
-json.array! @products, partial: "products/product", as: :product
+json.array! @products, partial: "users_backoffice/products/product", as: :product

@@ -1,50 +1,51 @@
 <div class="container">
-  <nav class="navbar navbar-dark bg-dark">
-    
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <div class="navbar-brand" style="color:white"><%= link_to "Lista de Categorias", users_backoffice_categories_path, style:"color:#fff" %></div>
-      </li>
-    </ul>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand"><%= link_to "Lista de Categorias", users_backoffice_categories_path, class: 'h3 font-weight-bold' %> </a>
 
-    <%= form_with url: users_backoffice_categories_path, method: :get, local: true, class:"form-inline" do |form| %>
-      <%= form.search_field :title, class:"form-control-sm mr-sm-2", placeholder:"nome do produto" %>
-      <%= form.submit "Pesquisar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search" %>
-    <% end %>
-
-  </nav>
-</div><br>
-
-<div class="container">
-  <nav class="navbar navbar-dark bg-dark">
-    
-    <%= form_with url: "#", local: true, class:"form-inline" do |form| %>
-      <%= form.select :order, options_for_select(["Titulo", "Preço", "Quantidade no estoque"]), {}, {class:"form-control-sm", style:"width:110px;"} %>&nbsp;
-      <%= form.select :type, options_for_select(["Crescente", "Decrescente"]), {}, {class:"form-control-sm", style:"width:110px;"} %>&nbsp;
-      <%= form.submit "filtrar", class:"btn btn-outline-info btn-sm my-2 my-sm-0 fa-search"%>
-    <% end %>
-
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#new<%= params[:controller].slice(17..30) %>Modal">
-      <i class="fa fa-plus-square"></i>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+    </div>
+
+    <button type="button" class="btn btn-outline-success btn-round btn-md" data-toggle="modal" data-target="#new<%= params[:controller].slice(17..30) %>Modal">
+      <i class="fa fa-plus-square"></i> Categoria
+    </button>
+
   </nav>
 </div><br>
 
-<div class="row">
-  <% @categories.each do |category| %>
-    <div class="col-sm-6 col-md-6 col-lg-6">
-      <div class="card text-white bg-dark mb-3">
-        <div class="card-header" style="background-color:#191970">
-          <h6 class="card-title"><%= check_box_tag :check, class:"form-control" %>  <%= category.title %> | Nº de produtos: <span class="badge badge-light"><%= category.products_count %></span></h6>
-        </div>
-        <div class="card-footer">
-          <%= link_to '', edit_users_backoffice_category_path(category), class:"btn btn-primary fa fa-edit", style:"width:35px;" %>
-          <%= link_to '', users_backoffice_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger fa fa-trash", style:"width:35px;" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<table class="table table-striped table-hover table-sm">
+  <thead>
+    <tr>
+      <th>Titulo</th>
+      <th>Produtos em estoque</th>
+      <th>Produtos vendidos</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <th><%= category.title %></th>
+        <td><%= category.products_count %></td>
+        <td><%= category.sales_count %></td>
+        <td>
+          <%= link_to edit_users_backoffice_category_path(category), class:"btn btn-primary btn-round btn-sm py-0" do %>
+            <span class='icon'><i class='fa fa-edit'></i></span>
+          <% end %>
+
+          <%= link_to users_backoffice_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-round btn-sm py-0" do %>
+            <span class='icon'><i class='fa fa-trash'></i></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
 

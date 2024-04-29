@@ -34,6 +34,9 @@ gem 'vanilla_nested'
 gem "chartkick"
 gem 'groupdate' # optional
 gem 'apexcharts'
+gem 'annotate'
+gem 'ransack'
+gem 'money-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

@@ -1,2 +1,20 @@
 module ApplicationHelper
+  def simple_date_format(date)
+    I18n.l date, format: :short
+  end
+
+  def link_to_go_back
+    content_tag :p, class: 'text-right' do
+      index_path = "users_backoffice_#{controller_name}_path"
+      index_path = method(index_path).call
+
+      link_to index_path, class: 'btn btn-secondary btn-round' do
+        content_tag :span, class: 'icon' do
+          content_tag :i, class: 'fa fa-arrow-left text-white' do
+            ' Voltar'
+          end
+        end
+      end
+    end
+  end
 end

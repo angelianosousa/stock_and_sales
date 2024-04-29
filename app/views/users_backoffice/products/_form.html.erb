@@ -13,13 +13,13 @@
 
   <div class="row">
     <div class="col-md-6 col-sm-6 col-lg-6">
-      <div class="field">
+      <div class="form-group">
         <%= form.label :'Titulo do produto' %>
         <%= form.text_field :title, class:"form-control" %>
       </div>
     </div>
     <div class="col-md-6 col-sm-6 col-lg-6">
-      <div class="field">
+      <div class="form-group">
         <%= form.label :Categoria %>
         <%= form.collection_select :category_id, Category.all, :id, :title, {include_blank: "Selecione uma categoria"}, {class:"form-control"} %>
       </div>
@@ -27,34 +27,40 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-      <div class="field">
-        <%= form.label :'Preço Unitário ($)' %>
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= form.label :price, 'Preço Unitário (R$)' %>
         <%= form.number_field :price, class:"form-control" %>
       </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-lg-12">
-      <div class="field">
-        <%= form.label :'Em estoque' %>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= form.label :in_stock, 'Estoque' %>
         <%= form.number_field :in_stock, class:"form-control" %>
       </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-lg-12">
-      <div class="field">
-        <%= form.label :'Margem de segurança' %>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= form.label :safety_margin, 'Margem de segurança' %>
         <%= form.number_field :safety_margin, class:"form-control" %>
       </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-lg-12">
-      <div class="field">
-        <%= form.label :'Foto do produto' %>
-        <%= form.file_field :picture, class:"form-control" %>
+
+    <div class="col-md-12">
+      <div class="form-group">
+
+        <div class='custom-file'>
+          <%= form.file_field :picture, class: "custom-file-input", id:'customFile' %>
+          <%= form.label :'Foto do produto', class:"custom-file-label", for:"customFile" %>
+        </div>
+
       </div>
     </div>
   </div>
 
   <div class="modal-footer">
-    <%= form.submit "Salvar", class:"btn btn-dark" %>
-    <%= link_to '', users_backoffice_products_path, class:"btn btn-outline-info fa fa-arrow-left", style:"font-size:24px" %>
+    <%= form.submit "Salvar", class:"btn btn-primary btn-round" %>
   </div>
 <% end %>

@@ -1,0 +1,19 @@
+
+<nav class="search-form-filter mb-4">
+  <%= search_form_for @q, url: users_backoffice_products_path, html: { class: 'form-row my-2 w-100' } do |f| %>
+  
+    <div class='form-group col-md'>
+    <%= f.label :product_code_or_title_or_company_cont, 'Pesquisa produto', class: 'label-control' %>
+      <%= f.search_field :product_code_or_title_or_company_cont, 
+                          value: (params[:q][:product_code_or_title_cont] rescue nil), 
+                          class: 'form-control', 
+                          placeholder: 'código ou titulo ou marca' %>
+    </div>
+
+    <div class='d-flex flex-column mx-3'>
+      <%= f.submit 'Pesquisar', class: 'btn btn-primary btn-round' %>
+      <%= link_to 'Limpar', users_backoffice_products_path, class: 'btn btn-secondary btn-round' %>
+    </div>
+
+  <% end %>
+</nav>

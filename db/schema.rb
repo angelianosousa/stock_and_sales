@@ -58,11 +58,12 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
 
   create_table "products", force: :cascade do |t|
     t.bigint "category_id"
-    t.integer "product_code", null: false
+    t.string "product_code", null: false
     t.string "company"
     t.string "model"
     t.string "title"
-    t.decimal "price", default: "0.0"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "BRL", null: false
     t.integer "in_stock", default: 0
     t.integer "safety_margin", default: 0
     t.datetime "created_at", null: false
@@ -73,7 +74,9 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
   create_table "sale_items", force: :cascade do |t|
     t.bigint "sale_id"
     t.bigint "product_id"
-    t.integer "sold_amount", default: 1
+    t.integer "sold_amount", default: 1, null: false
+    t.integer "subtotal_price_cents", default: 0, null: false
+    t.string "subtotal_price_currency", default: "BRL", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_sale_items_on_product_id"
@@ -83,9 +86,11 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
   create_table "sales", force: :cascade do |t|
     t.bigint "sales_profile_id"
     t.string "client_name", null: false
-    t.date "date_sale", default: "2022-03-03"
-    t.decimal "total_price", default: "0.0"
-    t.boolean "picked_up", default: false
+    t.datetime "saled_at"
+    t.integer "total_price_cents", default: 0, null: false
+    t.string "total_price_currency", default: "BRL", null: false
+    t.integer "status", default: 0
+    t.integer "payment_method", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["sales_profile_id"], name: "index_sales_on_sales_profile_id"
