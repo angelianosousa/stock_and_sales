@@ -10,7 +10,7 @@ module ApplicationHelper
 
       link_to index_path, class: 'btn btn-secondary btn-round' do
         content_tag :span, class: 'icon' do
-          content_tag :i, class: 'fa fa-arrow-left text-white' do
+          content_tag :i, class: 'fa fa-arrow-left text-white', style: 'font-size: 12px;' do
             ' Voltar'
           end
         end

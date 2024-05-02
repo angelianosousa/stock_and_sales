@@ -53,39 +53,39 @@
                 <ul class="nav side-menu">
                   <li class="<%= params[:controller] == 'welcome' ? 'active' : '' %>">
                     <%= link_to users_backoffice_welcome_index_path do %>
-                      <i class="fa fa-home"></i> Home
+                      <span class='icon'><i class="fa-solid fa-house"></i></span> Home
                     <% end %>
                   </li>
 
                   <li class="<%= params[:controller] == 'products' ? 'active' : '' %>">
-                    <a><i class="fa fa-suitcase"></i> Produtos <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa-solid fa-store"></i> Produtos <span class="fa-solid fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
                       <li>
                         <%= link_to users_backoffice_products_path do %>
-                          <i class="fa fa-list"></i> Lista
+                          <i class="fa-solid fa-list"></i> Lista
                         <% end %>
                       </li>
                       <li>
                         <%= link_to users_backoffice_categories_path do %>
-                          <i class="fa fa-outdent"></i> Categorias
+                          <i class="fa-solid fa-outdent"></i> Categorias
                         <% end %>
                       </li>
                     </ul>
                   </li>
 
                   <li class="<%= params[:controller] == 'sales' ? 'active' : '' %>">
-                    <a><i class="fa fa-usd img-circle"></i> Vendas <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa-solid fa-usd img-circle"></i> Vendas <span class="fa-solid fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
                       <li>
                         <%= link_to users_backoffice_dashboard_sales_path do %>
-                          <i class="fa fa-dashboard"></i> Painel Geral
+                          <i class="fa-solid fa-dashboard"></i> Painel Geral
                         <% end %>
                       </li>
                       <li>
                         <%= link_to users_backoffice_sales_path do %>
-                          <i class="fa fa-list"></i> Registro de Vendas
+                          <i class="fa-solid fa-list"></i> Registro de Vendas
                         <% end %>
                       </li>
                     </ul>

@@ -1,16 +1,11 @@
-// Place all the styles related to the users_backoffice controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-/* 
-*= require bootstrap/dist/css/bootstrap.min
-*= require font-awesome/css/font-awesome.min
-*= require custom
-*/
+@import 'bootstrap/dist/css/bootstrap.min';
+@import 'custom';
+@import 'colors';
+@import 'font-awesome';
 
 .search-form-filter {
-  border: 1px solid black;
-  color: black;
+  border: 1px solid $black;
+  color: $black;
   border-radius: 10px;
   margin-bottom: 25px;
   padding: 5px;
@@ -21,18 +16,48 @@
 }
 
 .product_code_style {
-  background-color:#ffc23d;
+  background-color:$yellow;
   color:#343a40;
   width:15%;
-}
-
-body {
-  margin: 0px;
-  padding: 0px;
-  width: 100%;
 }
 
 .button_remove_item {
   margin: 0px 20px 180px -10px;
   position: absolute;
 }
+
+.table tr {
+  border-bottom: 1px solid $black;
+}
+
+.btn-primary {
+  background-color: $red !important;
+  color: $white;
+}
+
+.btn-warning {
+  background-color: $yellow !important;
+  color: $white;
+}
+
+.btn-primary {
+  background-color: $blue !important;
+  color: $white;
+}
+
+.btn-success, .badge-success {
+  background-color: $green !important;
+  color: $white;
+}
+
+.btn-danger {
+  background-color: $red !important;
+  color: $white;
+}
+
+.btn-outline-success {
+  border-color: $green;
+  background-color: $white;
+  color: $green;
+}
+

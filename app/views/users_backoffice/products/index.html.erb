@@ -20,53 +20,9 @@
 
 <%= render 'search_form' %>
 
-<div class='container'>
-
-  <div class="row">
-    <% @products.each do |product| %>
-    
-      <div class="col-sm-6 col-md-6 col-lg-6">
-        <div class="card text-white bg-dark mb-3" style="max-width: 540px;">
-
-          <div class="card-header bg-primary">
-            <div class='d-flex flex-row justify-content-between'>
-              <h6 class="card-title">              
-                <%= product.title %>
-              </h6>
-
-              <div class='actions'>
-                <%= link_to '', edit_users_backoffice_product_path(product), class:"btn btn-primary fa fa-edit" %>
-                <%= link_to '', users_backoffice_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger fa fa-trash" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="row no-gutters">
-            <div class="col-md">
-              <%= product.picture.attached? ? 
-                image_tag(product.picture, size:"180x248", style:"margin-left:10px;") : 
-                image_tag('https://via.placeholder.com/180x248', size:"180x248", style:"margin-left:10px;")%>
-            </div>
-
-            <div class="col-md">
-              <div class="card-body mx-3">
-                <p class="badge badge-warning" style='font-size: 15px;'>        <%= product.product_code %></p>
-                <p class="card-text"><strong>Categoria do produto:</strong> <br><%= product.category.title %></p>
-                <p class="card-text"><strong>Preço unitário:</strong>           <%= humanized_money_with_symbol(product.price) %></p>
-                <p class="card-text"><strong>Marca:</strong>                    <%= product.company %></p>
-                <p class="card-text"><strong>Em estoque:</strong>               <%= product.in_stock %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
 <div class='table-responsive'>
   <table class="table table-striped">
-    <thead>
+    <thead class='thead-dark'>
       <tr>
         <th scope="col">Produto</th>
         <th scope="col">Código</th>
@@ -80,10 +36,21 @@
     <tbody>
       <% @products.each do |product| %>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <th scope="row"><%= product.title %></th>
+        <td><%= product.product_code %></td>
+        <td><%= product.company %></td>
+        <td><%= humanized_money_with_symbol product.price_cents %></td>
+        <td><%= product.in_stock %></td>
+        <td><%= product.safety_margin %></td>
+        <td>
+          <%= link_to edit_users_backoffice_product_path(product), class:"btn btn-secondary btn-round btn-sm py-0" do %>
+            <span class='icon'><i class='fa fa-pencil'></i></span>
+          <% end %>
+
+          <%= link_to users_backoffice_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-round btn-sm py-0" do %>
+            <span class='icon'><i class='fa fa-trash'></i></span>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

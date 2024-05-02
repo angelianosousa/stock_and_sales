@@ -89,7 +89,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    diff-lcs (1.5.0)
+    diff-lcs (1.5.1)
     dry-configurable (0.12.1)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5.0)
@@ -126,6 +126,8 @@ GEM
     ffi (1.15.5-java)
     ffi (1.15.5-x64-mingw32)
     ffi (1.15.5-x86-mingw32)
+    font-awesome-sass (6.4.2)
+      sassc (~> 2.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     groupdate (5.2.4)
@@ -234,23 +236,23 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rspec-core (3.9.3)
-      rspec-support (~> 3.9.3)
-    rspec-expectations (3.9.4)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-mocks (3.9.1)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-rails (3.9.1)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 3.9.0)
-      rspec-expectations (~> 3.9.0)
-      rspec-mocks (~> 3.9.0)
-      rspec-support (~> 3.9.0)
-    rspec-support (3.9.4)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     ruby_dep (1.5.0)
     rubyzip (2.3.2)
     sass (3.7.4)
@@ -264,6 +266,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    sassc (2.4.0-x64-mingw32)
+      ffi (~> 1.9)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -288,7 +294,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2021.5)
+    tzinfo-data (1.2024.1)
       tzinfo (>= 1.0.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
@@ -320,28 +326,29 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
-  annotate
-  apexcharts
+  annotate (= 3.2.0)
+  apexcharts (= 0.1.11)
   bootsnap (>= 1.1.0)
   byebug
   capybara
   chartkick
   coffee-rails (~> 4.2)
   database_cleaner
-  devise
-  factory_bot
+  devise (= 4.8.1)
+  factory_bot (= 6.2.0)
   faker
+  font-awesome-sass (~> 6.4.2)
   groupdate
   jbuilder (~> 2.5)
   kaminari (= 1.1.1)
   listen (>= 3.0.5, < 3.2)
-  money-rails
+  money-rails (= 1.15.0)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.0)
-  rails-i18n
-  ransack
-  rspec-rails (~> 3.5)
+  rails-i18n (= 5.1.3)
+  ransack (= 2.4.1)
+  rspec-rails (= 3.5)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring

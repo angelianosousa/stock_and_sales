@@ -26,17 +26,18 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'devise'
-gem 'rails-i18n'
+gem 'devise', '4.8.1'
+gem 'rails-i18n', '5.1.3'
 gem 'faker'
 gem 'kaminari', '1.1.1'
 gem 'vanilla_nested'
 gem "chartkick"
 gem 'groupdate' # optional
-gem 'apexcharts'
-gem 'annotate'
-gem 'ransack'
-gem 'money-rails'
+gem 'apexcharts', '0.1.11'
+gem 'annotate', '3.2.0'
+gem 'ransack', '2.4.1'
+gem 'money-rails', '1.15.0'
+gem 'font-awesome-sass', '~> 6.4.2'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -59,8 +60,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rspec-rails', '~> 3.5'
-  gem 'factory_bot'
+  gem 'rspec-rails', '3.5'
+  gem 'factory_bot', '6.2.0'
   gem 'capybara'
   gem 'database_cleaner'
 end
