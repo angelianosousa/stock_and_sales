@@ -11,13 +11,20 @@
         </div>
         <%= f.text_field :saled_at_eq, 
                           class: 'form-control datepicker',
+                          placeholder: 'DD/MM/AAAA',
                           value: (params[:q][:saled_at_eq] rescue nil) %>
       </div>
     </div>
  
     <div class='form-group col-md'>
       <%= f.label :client_name_cont, 'Cliente', class: 'label-control' %>
-      <%= f.text_field :client_name_cont, placeholder: 'Ex.: Ana Eduarda...', class: 'form-control', value: (params[:q][:client_name_cont] rescue nil) %>
+
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'><i class='fa fa-user'></i></span>
+        </div>
+        <%= f.text_field :client_name_cont, placeholder: 'Ex.: Ana Eduarda...', class: 'form-control', value: (params[:q][:client_name_cont] rescue nil) %>
+      </div>
     </div>
   
     <div class='d-flex flex-column mx-3'>

@@ -3,11 +3,20 @@
   <%= search_form_for @q, url: users_backoffice_products_path, html: { class: 'form-row my-2 w-100' } do |f| %>
   
     <div class='form-group col-md'>
-    <%= f.label :product_code_or_title_or_company_cont, 'Pesquisa produto', class: 'label-control' %>
-      <%= f.search_field :product_code_or_title_or_company_cont, 
-                          value: (params[:q][:product_code_or_title_cont] rescue nil), 
-                          class: 'form-control', 
-                          placeholder: 'código ou titulo ou marca' %>
+      <%= f.label :product_code_or_title_or_company_cont, 'Pesquisa produto', class: 'label-control' %>
+      
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+        </div>
+        <%= f.search_field :product_code_or_title_or_company_cont, 
+                            value: (params[:q][:product_code_or_title_or_company_cont] rescue nil), 
+                            class: 'form-control', 
+                            placeholder: 'código ou titulo ou marca' %>
+      </div>
+
     </div>
 
     <div class='d-flex flex-column mx-3'>

@@ -29,6 +29,7 @@
         <th>Criação do pedido</th>
         <th>Valor da venda</th>
         <th>Status</th>
+        <th>Encerrado em</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -39,16 +40,15 @@
           <td data-th='Sale created_at'><%= simple_date_format(sale.created_at.to_date) %></td>
           <td data-th='Sale total price'><%= humanized_money_with_symbol sale.total_price_cents %></td>
           <td data-th='Sale status'><%= badge_status(sale) %></td>
+          <td data-th='Sale saled at'><%= simple_date_format(sale&.saled_at) %></td>
           <td data-th='actions'>
             <%= link_to users_backoffice_sale_path(sale), class:"btn btn-info btn-round btn-sm py-0" do  %>
-            <span class='icon'><i class='fa fa-file'></i></span>
+            <span class='icon'><i class='fa fa-list-ol'></i></span>
             <% end %>
 
-            <% if sale.open? %>
-              <%= link_to edit_users_backoffice_sale_path(sale), class:"btn btn-secondary btn-round btn-sm py-0" do  %>
-                <span class='icon'><i class='fa fa-pencil'></i></span>
-              <% end %>
-            <% end %>
+            <%= link_to edit_users_backoffice_sale_path(sale), class:"btn btn-secondary btn-round btn-sm py-0" do  %>
+              <span class='icon'><i class='fa fa-pencil'></i></span>
+            <% end if sale.open? %>
 
             <%= link_to users_backoffice_sale_path(sale), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-round btn-sm py-0" do  %>
               <span class='icon'><i class='fa fa-trash'></i></span>

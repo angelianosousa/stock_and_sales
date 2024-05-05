@@ -1,6 +1,8 @@
 module ApplicationHelper
   def simple_date_format(date)
-    I18n.l date, format: :short
+    return '-' unless date.present?
+
+    I18n.l date, format: :long
   end
 
   def link_to_go_back

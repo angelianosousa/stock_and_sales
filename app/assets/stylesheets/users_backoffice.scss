@@ -21,11 +21,6 @@
   width:15%;
 }
 
-.button_remove_item {
-  margin: 0px 20px 180px -10px;
-  position: absolute;
-}
-
 .table tr {
   border-bottom: 1px solid $black;
 }
@@ -61,3 +56,6 @@
   color: $green;
 }
 
+.page-link, .page-link:hover {
+  color: $blue;
+}

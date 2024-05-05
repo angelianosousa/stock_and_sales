@@ -24,23 +24,23 @@
   <table class="table table-striped">
     <thead class='thead-dark'>
       <tr>
-        <th scope="col">Produto</th>
-        <th scope="col">Código</th>
-        <th scope="col">Empresa</th>
-        <th scope="col">Marca</th>
-        <th scope="col">Valor unitário</th>
-        <th scope="col">Estoque</th>
-        <th scope="col">Margem de segurança</th>
+        <th>Produto</th>
+        <th>Código</th>
+        <th>Empresa</th>
+        <th>Valor unitário</th>
+        <th>Estoque</th>
+        <th>Margem de segurança</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @products.each do |product| %>
       <tr>
-        <th scope="row"><%= product.title %></th>
+        <th><%= product.title %></th>
         <td><%= product.product_code %></td>
         <td><%= product.company %></td>
         <td><%= humanized_money_with_symbol product.price_cents %></td>
-        <td><%= product.in_stock %></td>
+        <td style="color: <%= product.in_stock > product.safety_margin ? 'green' : 'red' %>"><%= product.in_stock %></td>
         <td><%= product.safety_margin %></td>
         <td>
           <%= link_to edit_users_backoffice_product_path(product), class:"btn btn-secondary btn-round btn-sm py-0" do %>

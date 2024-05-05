@@ -1,6 +1,6 @@
 <div class="table-responsive mt-4">
   <table class="table table-striped">
-    <thead>
+    <thead class='thead-dark'>
       <tr>
         <th>Código do Produto</th>
         <th>Marca</th>
@@ -28,7 +28,7 @@
               <%= link_to users_backoffice_sale_remove_item_path(@sale, item), 
                           class: 'btn btn-danger btn-round btn-sm py-0', 
                           method: :post, data: { confirm: "Tem certeza que quer remover o item #{item.product.title} ?" } do %>
-                <span class='icon'><i class='fa fa-trash'></i></span>
+                <span class='icon'><i class='fa fa-circle-xmark'></i></span>
               <% end %>
             <% end %>
           </td>
@@ -36,13 +36,6 @@
       <% end %>
     </tbody>
 
-    <tfoot>
-    <tr>
-      <td>
-        <p><strong>Valor final:</strong> <%= humanized_money_with_symbol @sale.total_price_cents %></p>
-      </td>
-    </tr>
-  </tfoot>
   </table>
 </div>
 

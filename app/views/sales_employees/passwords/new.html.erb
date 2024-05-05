@@ -3,11 +3,17 @@
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
 
   <div class="form-group">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"example@gmail.com" %>
+    <div class='input-group-prepend'>
+      <div class="input-group-text mb-4">
+        <span class='icon'><i class='fa fa-envelope'></i></span>
+      </div>
+
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"example@gmail.com" %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= f.submit "Enviar reset de senha", class:"btn btn-warning btn-block btn-round", style:"float:none;margin-left:0;" %>
+    <%= f.submit "Enviar reset de senha", class:"btn btn-primary btn-block btn-round m-auto" %>
   </div>
 <% end %>
 

@@ -12,11 +12,11 @@
     <li class="nav-item ">
       <% if @sale.open? %>
         <button type="button" class="btn btn-success btn-round" data-toggle="modal" data-target="#addSalesItems">
-          <span class='icon'><i class='fa fa-plus'> Item</i></span>
+          <span class='icon'><i class='fa fa-circle-plus'> Item</i></span>
         </button>
 
-        <%= link_to edit_users_backoffice_sale_path(@sale), class:"btn btn-primary btn-round py-0" do %>
-          <span class='icon'><i class='fa fa-edit'></i></span>
+        <%= link_to edit_users_backoffice_sale_path(@sale), class:"btn btn-secondary btn-round py-0" do %>
+          <span class='icon'><i class='fa fa-pencil'></i></span>
         <% end %>
       <% end %>
 
@@ -43,6 +43,10 @@
   <%= render 'sale_items', locals: @sale %>
 </div>
 
+<div class='float-left'>
+  <p class='font-weight-bold' style='font-size: 15px;'><strong>Valor final:</strong> <%= humanized_money_with_symbol @sale.total_price_cents %></p>
+</div>
+
 <% if @sale.open? %>
   <button type="button" class="btn btn-primary btn-round float-right" data-toggle="modal" data-target="#closeSale">
     Fechar venda
@@ -52,7 +56,7 @@
   <%= render 'users_backoffice/sales/modal/novo_item' %>
 <% else %>
   <div class='float-right'>
-    <p>Fechado em: <%= simple_date_format @sale.saled_at %></p>
+    <p class='font-weight-bold' style='font-size: 15px;'>Fechado em: <%= simple_date_format @sale.saled_at %></p>
   </div>
 <% end %>
 
