@@ -29,8 +29,8 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <%= form.label :price, 'Preço Unitário (R$)' %>
-        <%= form.number_field :price, class:"form-control" %>
+        <%= form.label :price_cents, 'Preço Unitário (R$)' %>
+        <%= form.number_field :price_cents, class:"form-control" %>
       </div>
     </div>
 
@@ -64,3 +64,9 @@
     <%= form.submit "Salvar", class:"btn btn-primary btn-round" %>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function(){
+    $("#product_category_id").selectize()[0].selectize;
+  });
+</script>

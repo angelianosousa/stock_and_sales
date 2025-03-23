@@ -20,6 +20,7 @@
 //= require Chart.bundle
 //= require js-datepicker/dist/datepicker.min
 //= require custom
+//= require @selectize/selectize/dist/js/selectize.min
 //= require_tree .
 
 

@@ -6,16 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-10.times do |user|
-  SalesEmployee.create!(email:"user#{user}@teste.com", password: "user321", password_confirmation: "user321")
+SalesEmployee.find_or_create_by!(email:"user@teste.com") do |user|
+  user.password = "user321"
+  user.password_confirmation = "user321"
 end
 
 10.times do
-  Category.create!(title: Faker::ProgrammingLanguage.name)
+  Category.find_or_create_by!(title: Faker::ProgrammingLanguage.name)
 end
 
 20.times do
-  Product.create!(
+  Product.find_or_create_by!(
     category: Category.all.sample,
     company: Faker::Restaurant.type,
     title: Faker::Restaurant.name,

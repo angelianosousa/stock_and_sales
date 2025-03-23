@@ -11,7 +11,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # /app/assets
 Rails.application.config.assets.precompile += %w( 
   users_backoffice.js users_backoffice.css
-  salesemployee_devise.js salesemployee_devise.css
   admin_devise.js admin_devise.css
 )
 

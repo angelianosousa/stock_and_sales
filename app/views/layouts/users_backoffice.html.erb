@@ -51,14 +51,14 @@
                 <h3>Painel</h3>
 
                 <ul class="nav side-menu">
-                  <li class="<%= params[:controller] == 'welcome' ? 'active' : '' %>">
+                  <li class="<%= params[:controller].split('/')[1] == 'welcome' ? 'active' : '' %>">
                     <%= link_to users_backoffice_welcome_index_path do %>
                       <span class='icon'><i class="fa-solid fa-house"></i></span> Home
                     <% end %>
                   </li>
 
-                  <li class="<%= params[:controller] == 'products' ? 'active' : '' %>">
-                    <a><i class="fa-solid fa-store"></i> Produtos <span class="fa-solid fa-chevron-down"></span></a>
+                  <li class="<%= ['products', 'categories'].include?(params[:controller].split('/')[1]) ? 'active' : '' %>">
+                    <a><i class="fa-solid fa-store"></i> Produtos <span class="fa-solid fa-chevron-down float-right"></span></a>
 
                     <ul class="nav child_menu">
                       <li>
@@ -74,8 +74,8 @@
                     </ul>
                   </li>
 
-                  <li class="<%= params[:controller] == 'sales' ? 'active' : '' %>">
-                    <a><i class="fa-solid fa-usd img-circle"></i> Vendas <span class="fa-solid fa-chevron-down"></span></a>
+                  <li class="<%= ['sales'].include?(params[:controller].split('/')[1]) ? 'active' : '' %>">
+                    <a><i class="fa-solid fa-usd img-circle"></i> Vendas <span class="fa-solid fa-chevron-down float-right"></span></a>
 
                     <ul class="nav child_menu">
                       <li>

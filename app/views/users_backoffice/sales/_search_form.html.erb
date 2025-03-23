@@ -1,4 +1,3 @@
-
 <nav class="search-form-filter">
   <%= search_form_for @q, url: users_backoffice_sales_path, html: { class: 'form-row my-2 w-100' } do |f| %>
 
@@ -23,13 +22,13 @@
         <div class="input-group-text">
           <span class='icon'><i class='fa fa-user'></i></span>
         </div>
-        <%= f.text_field :client_name_cont, placeholder: 'Ex.: Ana Eduarda...', class: 'form-control', value: (params[:q][:client_name_cont] rescue nil) %>
+        <%= f.select :client_name_cont, options_for_select(Product.pluck(:client_name, :id)), placeholder: 'Ex.: Ana Eduarda...', class: 'form-control', value: (params[:q][:client_name_cont] rescue nil) %>
       </div>
     </div>
   
-    <div class='d-flex flex-column mx-3'>
-      <%= f.submit 'Pesquisar', class: 'btn btn-primary btn-round' %>
-      <%= link_to 'Limpar', users_backoffice_sales_path, class: 'btn btn-secondary btn-round' %>
+    <div class='d-flex flex-column mx-3 mt-2'>
+      <%= f.submit 'Pesquisar', class: 'btn btn-primary btn-round btn-sm' %>
+      <%= link_to 'Limpar', users_backoffice_sales_path, class: 'btn btn-secondary btn-round btn-sm' %>
     </div>
       
   <% end %>

@@ -2,6 +2,7 @@
   <table class="table table-striped">
     <thead class='thead-dark'>
       <tr>
+        <th>Imagem</th>
         <th>Código do Produto</th>
         <th>Marca</th>
         <th>Nome do Produto </th>
@@ -16,6 +17,7 @@
     <tbody>
       <% @sale.sale_items.each do |item| %>
         <tr>
+          <td><%= image_tag 'images.jpeg', size: '50x50' %></td>
           <td><%= item.product.product_code %></td>
           <td><%= item.product.company %> </td>
           <td><%= item.product.title %></td>

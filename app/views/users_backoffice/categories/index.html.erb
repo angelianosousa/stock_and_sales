@@ -16,36 +16,41 @@
 
 </nav>
 
+<div class='card'>
+  <div class="card-body">
 
-<table class="table table-striped table-hover">
-  <thead class='thead-dark'>
-    <tr>
-      <th>Titulo</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <th><%= category.title %></th>
-        <td>
-          <%= link_to edit_users_backoffice_category_path(category), class:"btn btn-secondary btn-round btn-sm py-0" do %>
-            <span class='icon'><i class='fa fa-pencil'></i></span>
-          <% end %>
+    <table class="table table-striped table-hover">
+      <thead class='thead-dark'>
+        <tr>
+          <th>Titulo</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <th><%= category.title %></th>
+            <td>
+              <%= link_to edit_users_backoffice_category_path(category), class:"btn btn-secondary btn-round btn-sm py-0" do %>
+                <span class='icon'><i class='fa fa-pencil'></i></span>
+              <% end %>
 
-          <%= link_to users_backoffice_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-round btn-sm py-0" do %>
-            <span class='icon'><i class='fa fa-trash'></i></span>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+              <%= link_to users_backoffice_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-round btn-sm py-0" do %>
+                <span class='icon'><i class='fa fa-trash'></i></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="text-center">
+      <%= paginate @categories %>
+    </div>
+  </div>
+</div>
 
 <br>
 
-<div class="text-center">
-  <%= paginate @categories %>
-</div>
 
 <%= render partial: "users_backoffice/modals/new_category", locals: {category: @category = Category.new } %>

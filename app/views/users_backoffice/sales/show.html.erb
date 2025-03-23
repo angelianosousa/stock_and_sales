@@ -22,41 +22,45 @@
 
     </li>
   </ul>
-</nav>
+</nav><br>
 
+<div class="card">
+  <div class="card-body">
+    <% if @sale.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@sale.errors.count, "Erro(s)") %> Impediu da venda ser salva:</h2>
 
-<% if @sale.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@sale.errors.count, "Erro(s)") %> Impediu da venda ser salva:</h2>
+        <div class='alert alert-danger'>
+          <ul>
+            <% @sale.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
 
-    <div class='alert alert-danger'>
-      <ul>
-        <% @sale.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <div id='sale_items'>
+      <%= render 'sale_items', locals: @sale %>
     </div>
-  </div>
-<% end %>
 
-<div id='sale_items'>
-  <%= render 'sale_items', locals: @sale %>
+    <div class='float-left'>
+      <p class='font-weight-bold' style='font-size: 15px;'><strong>Valor final:</strong> <%= humanized_money_with_symbol @sale.total_price_cents %></p>
+    </div>
+
+    <% if @sale.open? %>
+      <button type="button" class="btn btn-primary btn-round float-right" data-toggle="modal" data-target="#closeSale">
+        Fechar venda
+      </button>
+
+      <%= render 'users_backoffice/sales/modal/close_sale' %>
+      <%= render 'users_backoffice/sales/modal/novo_item' %>
+    <% else %>
+      <div class='float-right'>
+        <p class='font-weight-bold' style='font-size: 15px;'>Fechado em: <%= simple_date_format @sale.saled_at %></p>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<div class='float-left'>
-  <p class='font-weight-bold' style='font-size: 15px;'><strong>Valor final:</strong> <%= humanized_money_with_symbol @sale.total_price_cents %></p>
-</div>
-
-<% if @sale.open? %>
-  <button type="button" class="btn btn-primary btn-round float-right" data-toggle="modal" data-target="#closeSale">
-    Fechar venda
-  </button>
-
-  <%= render 'users_backoffice/sales/modal/close_sale' %>
-  <%= render 'users_backoffice/sales/modal/novo_item' %>
-<% else %>
-  <div class='float-right'>
-    <p class='font-weight-bold' style='font-size: 15px;'>Fechado em: <%= simple_date_format @sale.saled_at %></p>
-  </div>
-<% end %>
 
