@@ -7,17 +7,19 @@
 #   - Caso não tenha suficiente -> Impedir venda e emitir erro
 module Services
   class CreateSale
-    def initialize(sales_profile, params)
-      @sale             = sales_profile.sales.find(params[:sale_id])
+    def initialize(company, params)
+      @company          = company
       @params           = params
+      @sale             = @company.sales.find(params[:sale_id])
       @action           = @params[:action]
+      @payment_method   = @params[:payment_method].to_i
       @total_sale_price = 0
     end
 
     def call
       ActiveRecord::Base.transaction do 
         begin
-          add_sale_item    if (@action == 'add_item' && validate_operation)
+          add_sale_item    if @action == 'add_item' && validate_operation
           remove_sale_item if @action == 'remove_item'
           finish_sale      if @action == 'close_sale'
         rescue ActiveRecord::Rollback => e
@@ -47,9 +49,11 @@ module Services
     end
 
     def finish_sale
-      @sale.payment_method = @params[:payment_method]
+      @sale.payment_method = @payment_method
       @sale.status         = :paid
       @sale.saled_at       = DateTime.now
+
+      calculate_stocks
     end
 
     private
@@ -57,8 +61,8 @@ module Services
     def validate_operation
       product = find_product
 
-      unless (product.in_stock.to_i - @params[:sold_amount].to_i) > 0
-        @sale.errors.add :base, :invalid, message: "O estoque do produto #{product.title} não pode ficar negativo!!"
+      unless (product.current_stock - @params[:sold_amount].to_i) > 0
+        @sale.errors.add :base, :invalid, message: "O estoque do produto #{product.name} não pode ficar negativo!!"
         return false
       end
 
@@ -69,14 +73,23 @@ module Services
       @sale.total_price_cents = 0
 
       @sale.sale_items.each do |item|
-        item.subtotal_price_cents = item.product.price_cents * item.sold_amount
-        @total_sale_price        += item.subtotal_price_cents
-
-        item.product.in_stock    -= item.sold_amount
-        item.product.save!
+        item.subtotal_price_cents   = item.product.price_cents * item.sold_amount
+        @total_sale_price          += item.subtotal_price_cents
       end
 
       @sale.total_price_cents = @total_sale_price
+    end
+
+    def calculate_stocks
+      @sale.sale_items.each do |item|
+        Stock.create(
+          company_id: @company.id,
+          move_type: Stock.move_types[:sell]
+          quantity: item.sold_amount
+          product_id: item.product_id
+          price_cents: item.product.price_cents
+        )
+      end
     end
 
     def find_product

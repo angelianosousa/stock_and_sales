@@ -3,15 +3,14 @@
 # Table name: products
 #
 #  id             :bigint           not null, primary key
+#  company_id     :bigint
 #  category_id    :bigint
 #  product_code   :string           not null
 #  company        :string
-#  model          :string
-#  title          :string
+#  name           :string
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("BRL"), not null
-#  in_stock       :integer          default(0)
-#  safety_margin  :integer          default(0)
+#  safety_margin  :integer          default(1)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

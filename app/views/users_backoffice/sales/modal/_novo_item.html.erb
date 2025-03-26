@@ -66,8 +66,6 @@
     let subtotal_price = $('#subtotal_price');
     let in_stock       = $('#in_stock');
 
-    $("#product_id").selectize()[0].selectize;
-
     $('#product_id').on('change', function(){
       let product_id  = $(this).val();
       let sold_amount = $('#sold_amount').val();
@@ -85,12 +83,11 @@
 
     function calcule_products(product_id, solded){
       $.get('<%= users_backoffice_products_path %>', { q: { id_eq: product_id }}, function(response){
-        let product = response[0]
+        let product = response.product
 
-        item_price.val((product.price.cents).toLocaleString('pt-BR', { style: 'currency', currency: product.price.currency_iso }))
-        in_stock.val(product.in_stock - solded)
-
-        subtotal_price.val((product.price.cents * solded).toLocaleString('pt-BR', { style: 'currency', currency: product.price.currency_iso }))
+        item_price.val((product.price_cents).toLocaleString('pt-BR', { style: 'currency', currency: product.price_currency }))
+        in_stock.val(response.stocks - solded)
+        subtotal_price.val((product.price_cents * solded).toLocaleString('pt-BR', { style: 'currency', currency: product.price_currency }))
       }, 'json')
     }
   })

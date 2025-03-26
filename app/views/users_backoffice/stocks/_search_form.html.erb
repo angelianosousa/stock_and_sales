@@ -1,0 +1,72 @@
+<nav class="search-form-filter">
+  <%= search_form_for @q, url: users_backoffice_stocks_path, html: { class: 'form-row my-2 w-100' } do |f| %>
+
+    <div class='form-group col-md'>
+      <%= f.label :created_at_gteq, class: 'label-control' %>
+
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'><i class='fa fa-calendar'></i></span>
+        </div>
+        <%= f.text_field :created_at_gteq, 
+                          class: 'form-control datepicker',
+                          placeholder: 'Data inicio',
+                          value: (params[:q][:created_at_gteq] rescue nil) %>
+      </div>
+    </div>
+
+    <div class="form-group col-md" style="margin-top: 27px;">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'><i class='fa fa-calendar'></i></span>
+        </div>
+        <%= f.text_field :created_at_lteq, 
+                          class: 'form-control datepicker',
+                          placeholder: 'Data fim',
+                          value: (params[:q][:created_at_lteq] rescue nil) %>
+      </div>
+    </div>
+
+    <div class='form-group col-md'>
+      <%= f.label :price_cents_at_gteq, class: 'label-control' %>
+
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'>R$</span>
+        </div>
+        <%= f.text_field :price_cents_at_gteq, 
+                          class: 'form-control datepicker',
+                          placeholder: 'A partir de',
+                          value: (params[:q][:price_cents_at_gteq] rescue nil) %>
+      </div>
+    </div>
+
+    <div class="form-group col-md" style="margin-top: 27px;">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'>R$</span>
+        </div>
+        <%= f.text_field :price_cents_lteq, 
+                          class: 'form-control datepicker',
+                          placeholder: 'Até',
+                          value: (params[:q][:price_cents_lteq] rescue nil) %>
+      </div>
+    </div>
+ 
+    <div class="form-group col-md">
+      <%= f.label :product_id_eq %>
+      <%= f.select :product_id_eq, options_for_select(products_options_for_select, selected: (params[:q][:product_id_eq] rescue nil)), { include_blank: 'Selecione um produto' }, { class: 'form-control' } %>
+    </div>
+
+    <div class="form-group col-md">
+      <%= f.label :move_type_eq %>
+      <%= f.select :move_type_eq, options_for_select(stock_move_types_for_select_search, selected: (params[:q][:move_type_eq] rescue nil)), { include_blank: 'Selecione um tipo de lançamento' }, { class: 'form-control' } %>
+    </div>
+      
+    <div class='d-flex flex-column mx-3 mt-2'>
+      <%= f.submit 'Pesquisar', class: 'btn btn-primary btn-round btn-sm' %>
+      <%= link_to 'Limpar', users_backoffice_stocks_path, class: 'btn btn-secondary btn-round btn-sm' %>
+    </div>
+      
+  <% end %>
+</nav>

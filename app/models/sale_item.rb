@@ -19,16 +19,17 @@ class SaleItem < ApplicationRecord
 
   before_save :sale_amount_is_higher_than_product_stocks?
   
+  # TODO | Rever lógica de estorno de produtos
   def return_product!
     product.in_stock += sold_amount
     product.save!
   end
 
   def sale_amount_is_higher_than_product_stocks?
-    remaining_products = product.in_stock - sold_amount
+    remaining_products = (product.current_stock - sold_amount)
 
     if remaining_products <= 0
-      errors.add :sold_amount, :invalid, message: "O estoque do produto #{product.title} não pode ficar negativo!!"
+      errors.add :sold_amount, :invalid, message: "O estoque do produto #{product.name} não pode ficar negativo!!"
     end
   end
 end

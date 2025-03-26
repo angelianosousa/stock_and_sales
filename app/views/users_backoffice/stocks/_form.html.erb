@@ -1,0 +1,53 @@
+<%= form_with(model: [:users_backoffice, stock], local: true) do |form| %>
+  <% if stock.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stock.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+      <ul>
+      <% stock.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='row'>
+    <div class='col-lg'>
+      <div class="form-group">
+        <%= form.label :move_type %>
+        <%= form.select :move_type, options_for_select(stock_move_types_for_select, selected: stock.move_type), {}, { class:"form-control" } %>
+      </div>
+    </div>
+
+    <div class='col-lg'>
+      <div class="form-group">
+        <%= form.label :product_id %>
+        <%= form.select :product_id, options_for_select(products_options_for_select, selected: stock.product_id), {}, { class:"form-control" } %>
+      </div>
+    </div>    
+  </div>
+
+  <div class="row">
+    <div class='col-lg'>
+      <div class="form-group">
+        <%= form.label :quantity %>
+        <%= form.number_field :quantity, min: 1, class:"form-control" %>
+      </div>
+    </div>
+
+    <div class='col-lg'>
+      <%= form.label :price_cents %>
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <span class='icon'>R$</i></span>
+        </div>
+        <%= form.number_field :price_cents, min: 1, class:"form-control" %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <%= form.submit "Salvar", class:"btn btn-primary btn-round" %>
+  </div>
+<% end %>

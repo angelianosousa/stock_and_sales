@@ -4,7 +4,11 @@
   
   <ul class="navbar-nav">
     <li class="nav-item active">
-      <div class="navbar-brand"><%= I18n.l(@sale.created_at.to_date) %> | Cliente - <%= @sale.client_name %> </div>
+      <div class="navbar-brand">
+        <%= I18n.l(@sale.created_at.to_date) %> | Cliente - <%= @sale.client_name %>
+
+        <%= badge_payment_method(@sale) if @sale.paid? %>
+      </div>
     </li>
   </ul>
 
@@ -12,17 +16,17 @@
     <li class="nav-item ">
       <% if @sale.open? %>
         <button type="button" class="btn btn-success btn-round" data-toggle="modal" data-target="#addSalesItems">
-          <span class='icon'><i class='fa fa-circle-plus'> Item</i></span>
+          <span class='icon'><%= fa_icon('fa fa-circle-plus') %></span>
         </button>
 
         <%= link_to edit_users_backoffice_sale_path(@sale), class:"btn btn-secondary btn-round py-0" do %>
-          <span class='icon'><i class='fa fa-pencil'></i></span>
+          <span class='icon'><%= fa_icon('fa fa-pencil') %></span>
         <% end %>
       <% end %>
-
     </li>
   </ul>
 </nav><br>
+
 
 <div class="card">
   <div class="card-body">
@@ -62,5 +66,3 @@
     <% end %>
   </div>
 </div>
-
-

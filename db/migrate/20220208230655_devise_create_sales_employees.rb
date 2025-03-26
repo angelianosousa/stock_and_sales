@@ -3,6 +3,8 @@
 class DeviseCreateSalesEmployees < ActiveRecord::Migration[5.2]
   def change
     create_table :sales_employees do |t|
+      t.references :company, foreign_key: true
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

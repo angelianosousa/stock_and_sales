@@ -19,4 +19,10 @@ module ApplicationHelper
       end
     end
   end
+
+  def fa_icon(name, text = '')
+    tag.i class: "#{name}" do
+      text
+    end
+  end
 end

@@ -6,23 +6,38 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-SalesEmployee.find_or_create_by!(email:"user@teste.com") do |user|
-  user.password = "user321"
+current_company = Company.find_or_initialize_by(name: 'Empresa XPTO') do |company|
+  company.person_type = Company.person_types[:cnpj]
+  company.cpf_cnpj    = CNPJ.generate
+  company.save!
+end
+
+current_company.sales_employees.find_or_initialize_by(email:"user@teste.com") do |user|
+  user.password              = "user321"
   user.password_confirmation = "user321"
+  user.save!
 end
 
 10.times do
-  Category.find_or_create_by!(title: Faker::ProgrammingLanguage.name)
+  current_company.categories.find_or_create_by!(name: Faker::ProgrammingLanguage.name)
 end
 
 20.times do
-  Product.find_or_create_by!(
-    category: Category.all.sample,
+  current_company.products.find_or_create_by!(
+    category: current_company.categories.sample,
     company: Faker::Restaurant.type,
-    title: Faker::Restaurant.name,
+    name: Faker::Restaurant.name,
     price_cents: rand(100.00..9999.00),
-    in_stock: 50,
     safety_margin: 10
+  )
+end
+
+current_company.products.each do |prd|
+  current_company.stocks.create!(
+    product_id: prd.id,
+    move_type: Stock.move_types[:shop],
+    price_cents: 100,
+    quantity: 50,
   )
 end
 

@@ -7,20 +7,38 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <%= form_with url: users_backoffice_sale_close_sale_path(sale_id: @sale.id), class: 'form', local: true do |f| %>
+      <%= form_with url: users_backoffice_sale_close_sale_path(sale_id: @sale.id), class: 'form', local: true do |f| %>
+        <div class="modal-body">
+          <div class="border border-secondary p-3">
+            <h4>Itens</h4>
+            
+            <% @sale.sale_items.each do |item| %>
+              <div class="d-flex flex-row justify-content-between">
+                <b><%= item.product.name %></b>
+                <p>
+                  <%= humanized_money_with_symbol item.product.price_cents %> x
+                  <%= item.sold_amount %> = 
+                  <%= humanized_money_with_symbol item.subtotal_price_cents%>
+                </p>
+              </div>
+            <% end %>
+          </div><br>
+
+          <p class="d-flex flex-row justify-content-between border border-secondary p-3">
+            <b><%= Sale.human_attribute_name(:total_price_cents) %>:</b>
+            <%= humanized_money_with_symbol(@sale.total_price_cents) %>
+          </p>
 
           <div class='form-group'>
-            <%= f.label :payment_method, 'Método de pagamento' %>
-            <%= f.select :payment_method, options_for_select(Sale.payment_methods.keys), {}, { class: 'form-control' } %>
+            <%= f.label :payment_method, Sale.human_attribute_name(:payment_method) %>
+            <%= f.select :payment_method, options_for_select(sales_payment_method_for_select), {}, { class: 'form-control' } %>
           </div>
+        </div>
 
-          <div class='form-group'>
-            <%= f.submit 'Finalizar venda', class: 'btn btn-primary btn-round' %>
-          </div>
-
-        <% end %>
-      </div>
+        <div class="modal-footer">
+          <%= f.submit 'Finalizar venda', class: 'btn btn-primary btn-round' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

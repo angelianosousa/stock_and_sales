@@ -3,13 +3,14 @@
 # Table name: sales
 #
 #  id                   :bigint           not null, primary key
-#  sales_profile_id     :bigint
+#  company_id           :bigint
+#  sales_employee_id    :bigint
 #  client_name          :string           not null
 #  saled_at             :datetime
 #  total_price_cents    :integer          default(0), not null
 #  total_price_currency :string           default("BRL"), not null
 #  status               :integer          default("open")
-#  payment_method       :integer          default("money")
+#  payment_method       :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

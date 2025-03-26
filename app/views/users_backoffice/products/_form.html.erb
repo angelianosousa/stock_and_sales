@@ -14,51 +14,52 @@
   <div class="row">
     <div class="col-md-6 col-sm-6 col-lg-6">
       <div class="form-group">
-        <%= form.label :'Titulo do produto' %>
-        <%= form.text_field :title, class:"form-control" %>
+        <%= form.label :name %>
+        <%= form.text_field :name, class:"form-control" %>
       </div>
     </div>
     <div class="col-md-6 col-sm-6 col-lg-6">
       <div class="form-group">
         <%= form.label :Categoria %>
-        <%= form.collection_select :category_id, Category.all, :id, :title, {include_blank: "Selecione uma categoria"}, {class:"form-control"} %>
+        <%= form.collection_select :category_id, Category.all, :id, :name, {include_blank: "Selecione uma categoria"}, {class:"form-control"} %>
       </div>
     </div>
-  </div>
+  </div><br>
 
   <div class="row">
     <div class="col-md-4">
-      <div class="form-group">
-        <%= form.label :price_cents, 'Preço Unitário (R$)' %>
-        <%= form.number_field :price_cents, class:"form-control" %>
-      </div>
+      <% imagem = form.object.picture.attached? ? form.object.picture : 'placeholder_produto.png' %>
+
+      <%= image_tag imagem, size: '200x200' %>
     </div>
 
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= form.label :in_stock, 'Estoque' %>
-        <%= form.number_field :in_stock, class:"form-control" %>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= form.label :safety_margin, 'Margem de segurança' %>
-        <%= form.number_field :safety_margin, class:"form-control" %>
-      </div>
-    </div>
-
-    <div class="col-md-12">
-      <div class="form-group">
-
-        <div class='custom-file'>
-          <%= form.file_field :picture, class: "custom-file-input", id:'customFile' %>
-          <%= form.label :'Foto do produto', class:"custom-file-label", for:"customFile" %>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= form.label :price_cents %>
+            <%= form.number_field :price_cents, class:"form-control" %>
+          </div>
         </div>
 
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= form.label :safety_margin %>
+            <%= form.number_field :safety_margin, class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class='custom-file'>
+              <%= form.file_field :picture, class: "custom-file-input w-100", id:'customFile' %>
+              <%= form.label :picture, class:"custom-file-label", for:"customFile" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </div><br>
 
   <div class="modal-footer">
     <%= form.submit "Salvar", class:"btn btn-primary btn-round" %>

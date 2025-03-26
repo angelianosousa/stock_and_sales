@@ -15,12 +15,12 @@
     </thead>
 
     <tbody>
-      <% @sale.sale_items.each do |item| %>
+      <% @sale.sale_items.order(created_at: :desc).each do |item| %>
         <tr>
           <td><%= image_tag 'images.jpeg', size: '50x50' %></td>
           <td><%= item.product.product_code %></td>
           <td><%= item.product.company %> </td>
-          <td><%= item.product.title %></td>
+          <td><%= item.product.name %></td>
           <td><%= item.sold_amount %></td>
           <td><%= humanized_money_with_symbol item.product.price_cents %></td>
           <td><%= humanized_money_with_symbol item.subtotal_price_cents %></td>
@@ -29,7 +29,7 @@
             <% if @sale.open? %>
               <%= link_to users_backoffice_sale_remove_item_path(@sale, item), 
                           class: 'btn btn-danger btn-round btn-sm py-0', 
-                          method: :post, data: { confirm: "Tem certeza que quer remover o item #{item.product.title} ?" } do %>
+                          method: :post, data: { confirm: "Tem certeza que quer remover o item #{item.product.name} ?" } do %>
                 <span class='icon'><i class='fa fa-circle-xmark'></i></span>
               <% end %>
             <% end %>

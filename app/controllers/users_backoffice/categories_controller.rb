@@ -3,21 +3,19 @@ class UsersBackoffice::CategoriesController < UsersBackofficeController
 
   # GET /categories or /categories.json
   def index
-    
-    unless params[:title]
-      @categories = Category.all.page(params[:page])
-    else
-      @categories = Category._search_category_(params[:title], params[:page])
-    end
+    @categories = current_company.categories.page(params[:page])
+  end
+
+  def new
+    @category = current_company.categories.new
   end
 
   # GET /categories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /categories or /categories.json
   def create
-    @category = Category.new(category_params)
+    @category = current_company.categories.new(category_params)
 
     respond_to do |format|
       if @category.save
@@ -61,6 +59,6 @@ class UsersBackoffice::CategoriesController < UsersBackofficeController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:title)
+      params.require(:category).permit(:name)
     end
 end

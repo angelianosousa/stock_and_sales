@@ -40,7 +40,7 @@ gem 'money-rails', '1.15.0'
 gem 'font-awesome-sass', '~> 6.4.2'
 
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+gem "mini_magick", "~> 5.2"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -76,3 +76,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "cpf_cnpj", "~> 0.5.0"
+
+

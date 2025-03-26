@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
     devise_controller? ? "#{resource_class.to_s.downcase}_devise" : "application"
   end
 
-  helper_method :current_sales_profile
+  helper_method :current_company
 
-  def current_sales_profile
-    current_sales_employee.try(:sales_profile)
+  def current_company
+    current_sales_employee.try(:company)
   end
 end

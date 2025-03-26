@@ -1,0 +1,22 @@
+---
+pt-BR:
+  activerecord:
+    attributes:
+      sale:
+        client_name: Cliente
+        total_price_cents: Valor da venda
+        saled_at: Encerrado em
+        created_at: Iniciado em
+        status: Situação
+        payment_method: Meio de pagamento
+      sale/status: 
+        open: Aberta
+        paid: Paga
+      sale/payment_method:
+        money: Dinheiro
+        debt_card:  Débito
+        credit_card: Crédito
+    models:
+      sale:
+        one: Venda
+        other: Vendas

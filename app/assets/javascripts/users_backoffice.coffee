@@ -4,3 +4,5 @@
 
 # //= require vanilla_nested
 # //= require custom
+
+$('select').selectize()[0].selectize;

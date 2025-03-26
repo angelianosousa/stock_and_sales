@@ -3,6 +3,7 @@
 # Table name: sales_employees
 #
 #  id                     :bigint           not null, primary key
+#  company_id             :bigint
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
@@ -12,15 +13,11 @@
 #  updated_at             :datetime         not null
 #
 class SalesEmployee < ApplicationRecord
-  after_save :set_profile
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :sales_profile
-
-  def set_profile
-    SalesProfile.create(sales_employee_id: SalesEmployee.last.id)
-  end
+  belongs_to :company
+  has_many :sales, dependent: :destroy
 end

@@ -1,5 +1,5 @@
 module CategoriesHelper
   def category_for_select
-    Category.all.collect { |c| [c.title, c.id] }
+    current_company.categories.map { |c| [c.name, c.id] }
   end
 end

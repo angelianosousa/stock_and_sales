@@ -1,0 +1,100 @@
+<div class="col-md-3 left_col menu_fixed">
+  <div class="left_col scroll-view">
+    <div class="navbar nav_title" style="border: 0;">
+      <%= link_to users_backoffice_welcome_index_path, class:"site_title", style:"font-size:18px;" do %>
+        <i class="fa fa-cubes"></i> Estoque & Vendas
+      <% end %>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <!-- menu profile quick info -->
+    <div class="profile clearfix">
+      <div class="profile_pic">
+        <%= image_tag 'img.jpg', alt: '..', class: 'img-circle profile_img' %>
+      </div>
+      <div class="profile_info">
+        <span>Seja bem vindo!!,</span>
+        <h2><%= current_sales_employee.email %></h2>
+      </div>
+    </div>
+    <!-- /menu profile quick info -->
+
+    <br />
+
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+      <div class="menu_section">
+        <h3>Painel</h3>
+
+        <ul class="nav side-menu">
+          <li class="<%= params[:controller].split('/')[1] == 'welcome' ? 'active' : '' %>">
+            <%= link_to '#' do %>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa-solid fa-house fa-stack-1x"></i>
+              </span>
+              Home
+              <span class="badge badge-info">Em breve</span>
+            <% end %>
+          </li>
+
+          <li class="<%= ['products', 'categories'].include?(params[:controller].split('/')[1]) ? 'active' : '' %>">
+            <a>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa-solid fa-store fa-stack-1x"></i>
+              </span>
+              Produtos <span class="fa-solid fa-chevron-down float-right"></span>
+            </a>
+
+            <ul class="nav child_menu" style="display: <%= ['products', 'categories'].include?(params[:controller].split('/')[1]) ? 'block' : 'none' %>">
+              <li class="<%= ['products'].include?(params[:controller].split('/')[1]) ? 'current-page' : '' %>">
+                <%= link_to users_backoffice_products_path do %>
+                  <i class="fa-solid fa-list"></i> Lista de Produtos
+                <% end %>
+              </li>
+              <li class="<%= ['categories'].include?(params[:controller].split('/')[1]) ? 'current-page' : '' %>">
+                <%= link_to users_backoffice_categories_path do %>
+                  <i class="fa-solid fa-th-large"></i> Categorias
+                <% end %>
+              </li>
+              <li>
+                <%= link_to users_backoffice_stocks_path do %>
+                  <i class="fa-solid fa-archive"></i> Estoques
+                <% end %>
+              </li>
+            </ul>
+          </li>
+
+          <li class="<%= ['sales'].include?(params[:controller].split('/')[1]) ? 'active' : '' %>">
+            <a>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa-solid fa-usd fa-stack-1x"></i>
+              </span>
+              Vendas <span class="fa-solid fa-chevron-down float-right"></span>
+            </a>
+
+            <ul class="nav child_menu" style="display: <%= ['sales'].include?(params[:controller].split('/')[1]) ? 'block' : 'none' %>">
+              <li>
+                <%= link_to '#' do %>
+                  <i class="fa-solid fa-dashboard"></i> Painel Geral
+                  <span class="badge badge-info">Em breve</span>
+                <% end %>
+              </li>
+              <li class="<%= ['sales'].include?(params[:controller].split('/')[1]) ? 'current-page' : '' %>">
+                <%= link_to users_backoffice_sales_path do %>
+                  <i class="fa-solid fa-list"></i> Pedidos
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    <!-- /sidebar menu -->
+
+  </div>
+</div>

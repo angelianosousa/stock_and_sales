@@ -3,15 +3,14 @@
 # Table name: products
 #
 #  id             :bigint           not null, primary key
+#  company_id     :bigint
 #  category_id    :bigint
 #  product_code   :string           not null
 #  company        :string
-#  model          :string
-#  title          :string
+#  name           :string
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("BRL"), not null
-#  in_stock       :integer          default(0)
-#  safety_margin  :integer          default(0)
+#  safety_margin  :integer          default(1)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
@@ -23,16 +22,16 @@ class Product < ApplicationRecord
   # Associations
   belongs_to :category, counter_cache: true
   
-  has_many :sales_items
-  has_one_attached :picture
+  has_many :sales, dependent: :destroy
+  has_many :stocks, dependent: :destroy
 
   has_one_attached :picture do |attachable|
     attachable.variant :store, resize: "100x100"
   end
 
   # Validations
-  validates :title, presence: true
-  validates :price, :in_stock, :safety_margin, presence: true
+  validates :name, presence: true
+  validates :price, :safety_margin, presence: true
   monetize :price_cents
 
   # TODO Validations if has any product on sale
@@ -45,5 +44,13 @@ class Product < ApplicationRecord
 
   default_scope { order(updated_at: :desc )}
 
-  scope :with_stock, -> { where('in_stock > ?', 0) }
+  scope :with_stock, -> { select { |prod| prod.current_stock >= 1 } }
+
+  # What can i sell
+  def current_stock
+    shoppings = stocks.shop.sum(&:quantity)
+    sells     = stocks.sell.sum(&:quantity)
+    
+    shoppings - sells
+  end
 end

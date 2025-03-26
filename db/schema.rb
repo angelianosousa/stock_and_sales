@@ -49,26 +49,36 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "name"
+    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "products_count", default: 0
     t.integer "sales_count", default: 0
+    t.index ["company_id"], name: "index_categories_on_company_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "cpf_cnpj"
+    t.integer "person_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
+    t.bigint "company_id"
     t.bigint "category_id"
     t.string "product_code", null: false
     t.string "company"
-    t.string "model"
-    t.string "title"
+    t.string "name"
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "BRL", null: false
-    t.integer "in_stock", default: 0
-    t.integer "safety_margin", default: 0
+    t.integer "safety_margin", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["company_id"], name: "index_products_on_company_id"
   end
 
   create_table "sale_items", force: :cascade do |t|
@@ -84,19 +94,22 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.bigint "sales_profile_id"
+    t.bigint "company_id"
+    t.bigint "sales_employee_id"
     t.string "client_name", null: false
     t.datetime "saled_at"
     t.integer "total_price_cents", default: 0, null: false
     t.string "total_price_currency", default: "BRL", null: false
     t.integer "status", default: 0
-    t.integer "payment_method", default: 0
+    t.integer "payment_method"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["sales_profile_id"], name: "index_sales_on_sales_profile_id"
+    t.index ["company_id"], name: "index_sales_on_company_id"
+    t.index ["sales_employee_id"], name: "index_sales_on_sales_employee_id"
   end
 
   create_table "sales_employees", force: :cascade do |t|
+    t.bigint "company_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -104,22 +117,33 @@ ActiveRecord::Schema.define(version: 2022_02_14_023530) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_sales_employees_on_company_id"
     t.index ["email"], name: "index_sales_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sales_employees_on_reset_password_token", unique: true
   end
 
-  create_table "sales_profiles", force: :cascade do |t|
-    t.bigint "sales_employee_id"
-    t.string "name"
+  create_table "stocks", force: :cascade do |t|
+    t.integer "move_type"
+    t.integer "quantity", default: 1
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "BRL", null: false
+    t.bigint "company_id"
+    t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["sales_employee_id"], name: "index_sales_profiles_on_sales_employee_id"
+    t.index ["company_id"], name: "index_stocks_on_company_id"
+    t.index ["product_id"], name: "index_stocks_on_product_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "companies"
   add_foreign_key "products", "categories"
+  add_foreign_key "products", "companies"
   add_foreign_key "sale_items", "products"
   add_foreign_key "sale_items", "sales"
-  add_foreign_key "sales", "sales_profiles"
-  add_foreign_key "sales_profiles", "sales_employees"
+  add_foreign_key "sales", "companies"
+  add_foreign_key "sales", "sales_employees"
+  add_foreign_key "sales_employees", "companies"
+  add_foreign_key "stocks", "companies"
+  add_foreign_key "stocks", "products"
 end

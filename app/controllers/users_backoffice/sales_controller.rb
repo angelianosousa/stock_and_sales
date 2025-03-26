@@ -4,64 +4,32 @@ class UsersBackoffice::SalesController < UsersBackofficeController
   before_action :set_sale, only: %i[show edit update destroy]
 
   def dashboad_sales
-    @sales = Sale.where(sales_profile: current_sales_profile).includes(:sales_profile => :sales_employee).page(params[:page])
+    @sales = current_company.sales.page(params[:page])
   end
 
   # GET /sales or /sales.json
   def index
-    @q = current_sales_profile.sales.ransack(params[:q])
+    @q = current_company.sales.ransack(params[:q])
 
-    @sales = @q.result(distinct: true).includes(sales_profile: :sales_employee).page(params[:page])
+    @sales = @q.result(distinct: true).page(params[:page])
   end
 
   def new
-    @sale = current_sales_profile.sales.build
+    @sale = current_company.sales.build
   end
 
-  def show
-    @products = Product.with_stock
-  end
+  def show; end
 
   # GET /sales/1/edit
   def edit; end
 
-  def add_item
-    @sale = Services::CreateSale.new(current_sales_profile, params).call
-
-    if @sale.save
-      redirect_to users_backoffice_sale_url(@sale), notice: 'Item adicionado com sucesso!!'
-    else
-      redirect_to users_backoffice_sale_url(@sale), alert: @sale.errors.full_messages
-    end
-  end
-
-  def remove_item
-    @sale = Services::CreateSale.new(current_sales_profile, params).call
-
-    if @sale.save
-      redirect_to users_backoffice_sale_url(@sale), notice: 'Item removido com sucesso!!'
-    else
-      redirect_to users_backoffice_sale_url(@sale), alert: @sale.errors.full_messages
-    end
-  end
-
-  def close_sale
-    @sale = Services::CreateSale.new(current_sales_profile, params).call
-
-    if @sale.save
-      redirect_to users_backoffice_sales_url, notice: 'Registro de Venda finalizada com sucesso!'
-    else
-      redirect_to users_backoffice_sales_url, alert: @sale.errors.full_messages
-    end
-  end
-
   # POST /sales or /sales.json
   def create
-    @sale = current_sales_profile.sales.build(sale_params)
+    @sale = current_company.sales.build(sale_params)
 
     respond_to do |format|
       if @sale.save
-        format.html { redirect_to users_backoffice_sale_url(@sale), notice: "Registro de Venda criado com sucesso!" }
+        format.html { redirect_to users_backoffice_sale_url(@sale), notice: "Pedido de Venda criado com sucesso!" }
         format.json { render :show, status: :created, location: @sale }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -74,7 +42,7 @@ class UsersBackoffice::SalesController < UsersBackofficeController
   def update
     respond_to do |format|
       if @sale.update(sale_params)
-        format.html { redirect_to users_backoffice_sale_url(@sale), notice: "Registro de Venda atualizado com sucesso!" }
+        format.html { redirect_to users_backoffice_sale_url(@sale), notice: "Pedido de Venda atualizado com sucesso!" }
         format.json { render :show, status: :ok, location: @sale }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -88,8 +56,38 @@ class UsersBackoffice::SalesController < UsersBackofficeController
     @sale.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_backoffice_sales_url, notice: "Regitro de venda apagado com sucesso!" }
+      format.html { redirect_to users_backoffice_sales_url, notice: "Pedido de venda apagado com sucesso!" }
       format.json { head :no_content }
+    end
+  end
+
+  def add_item
+    @sale = Services::CreateSale.new(current_company, params).call
+
+    if @sale.save
+      redirect_to users_backoffice_sale_url(@sale), notice: 'Item adicionado com sucesso!!'
+    else
+      redirect_to users_backoffice_sale_url(@sale), alert: @sale.errors.full_messages
+    end
+  end
+
+  def remove_item
+    @sale = Services::CreateSale.new(current_company, params).call
+
+    if @sale.save
+      redirect_to users_backoffice_sale_url(@sale), notice: 'Item removido com sucesso!!'
+    else
+      redirect_to users_backoffice_sale_url(@sale), alert: @sale.errors.full_messages
+    end
+  end
+
+  def close_sale
+    @sale = Services::CreateSale.new(current_company, params).call
+
+    if @sale.save
+      redirect_to users_backoffice_sales_url, notice: 'Pedido de Venda finalizada com sucesso!'
+    else
+      redirect_to users_backoffice_sales_url, alert: @sale.errors.full_messages
     end
   end
 
@@ -100,11 +98,11 @@ class UsersBackoffice::SalesController < UsersBackofficeController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_sale
-    @sale = current_sales_profile.sales.find(params[:id])
+    @sale = current_company.sales.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def sale_params
-    params.require(:sale).permit(:sales_profile_id, :client_name, sale_items_attributes: [:id, :sale_id, :product_id, :sold_amount, :subtotal_price, :_destroy])
+    params.require(:sale).permit(:client_name, :payment_method, sale_items_attributes: [:id, :sale_id, :product_id, :sold_amount, :subtotal_price, :_destroy])
   end
 end

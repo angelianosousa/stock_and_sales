@@ -1,0 +1,17 @@
+---
+pt-BR:
+  activerecord:
+    attributes:
+      product:
+        picture:  Imagem
+        name:  Nome
+        product_code: Código
+        company:  Empresa
+        price_cents: Valor unitário
+        stock: Em estoque
+        safety_margin: Margem de Segurança
+    models:
+      product:
+        one: Produto
+        other: Produtos
+        

@@ -11,22 +11,27 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application' %>
+    <%= stylesheet_link_tag 'application' %>
   </head>
 
   <body class="login">
     <div class="login_wrapper">
       <div class="animate form login_form">
         <section class="login_content">
-          <h1><i class="fa fa-money"></i> Stock and Sales</h1>
-          <%= yield %>
+          <h1><i class="fa fa-shopping-cart"></i> Stock and Sales</h1>
+
+          <div class="card">
+            <div class="card-body">
+              <%= yield %>
+            </div>
+          </div>
         </section>
       </div>
 
     </div>
 
     <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag 'salesemployee_devise' %>
+    <%#= javascript_include_tag 'salesemployee_devise' %>
 
     <% if flash %>
       <% flash.each do |key, value| %>
